@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="insertPerformanceTitle">Insert Performance</h4>
+  <button
+    type="button"
+    class="close custom-close"
+    aria-label="Close modal"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div
+  class="modal-body"
+  aria-labelledby="insertPerformanceTitle"
+  aria-describedby="insertPerformanceDescription"
+>
+  <p id="insertPerformanceDescription">
+    Would you like to insert your performance now or later?
+  </p>
+  <p>
+    If you choose to insert it later, you will need to log in first and then
+    insert your performance through the person icon in the navbar.
+  </p>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    aria-label="Insert performance later"
+    (click)="activeModal.close('later')"
+  >
+    Insert Later
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    aria-label="Insert performance now"
+    (click)="onNow()"
+  >
+    Insert Now
+  </button>
+</div>

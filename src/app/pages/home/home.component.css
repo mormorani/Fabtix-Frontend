@@ -1,0 +1,250 @@
+.home-content {
+  display: flex;
+  flex-direction: column;
+  font-family: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}
+
+.header-section {
+  background: rgba(
+    168,
+    121,
+    121,
+    0.5
+  ); /* Semi-transparent background for readability */
+  padding: 20px;
+  border-radius: 8px;
+  justify-items: center;
+  color: #fff; /* Text color */
+}
+
+.header-section h1 {
+  font-size: 3rem; /* Adjust size based on design */
+  line-height: 1.2;
+  text-align: center;
+}
+
+.header-section button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #813c3c; /* Button color */
+  color: #fff; /* Button text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.header-section button:hover {
+  background-color: #ec8388; /* Darker shade on hover */
+}
+
+.review-section {
+  display: flex;
+  flex-direction: column; /* Default to column for small screens */
+  gap: 20px; /* Space between sections */
+  padding: 20px; /* Add padding around content */
+}
+
+.section {
+  flex: 1; /* Allows sections to grow equally */
+  padding: 20px;
+  max-width: 100%;
+  /* max-width: 48%; */
+}
+
+.left-section {
+  color: #fff;
+}
+
+.review-form {
+  background-color: rgba(168, 121, 121, 0.5);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
+  color: white !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds a shadow for better readability */
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  color: #333;
+}
+
+textarea.review {
+  background: transparent;
+  width: 80%;
+  max-width: 100%;
+  height: 150px;
+  padding: 10px;
+  box-sizing: border-box;
+  color: #eee;
+  border: thin solid white;
+  margin: 0 auto;
+  resize: none;
+}
+
+.btn1 {
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+  font-size: 1.2em;
+  border: 1px solid white;
+  box-shadow: none;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  outline: none; /* Prevent outline shift */
+}
+
+.showList button {
+  background-color: transparent !important;
+}
+
+.dropdown-item {
+  white-space: normal; /* Allow text wrapping */
+  color: #212529;
+}
+
+.dropdown-toggle {
+  white-space: normal; /* Allow text wrapping */
+}
+
+.dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #a8797980 !important;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+  color: #1e2125;
+  background-color: #e9ecef;
+}
+
+.btn {
+  border: 1px solid white;
+  box-shadow: none;
+}
+
+.btn:hover {
+  border-color: white !important;
+}
+
+.error {
+  color: red;
+  font-size: 0.875em;
+  background-color: white;
+  margin-top: 0.25em;
+}
+
+/* Carousel Review List */
+.carousel-inner-data {
+  margin: 0px auto;
+  height: 225px;
+  overflow: hidden;
+}
+
+.carousel-inner-data ul {
+  list-style: none;
+  position: relative;
+}
+
+.carousel-inner-data li {
+  height: auto;
+}
+
+.no-padding {
+  padding-left: 0;
+}
+
+.container1 {
+  display: flex;
+  padding: 20px;
+  gap: 0px 0px;
+  height: max-content;
+  justify-content: left;
+  background-color: rgba(168, 121, 121, 0.5);
+  margin-top: 50px;
+  border-radius: 8px;
+}
+
+.post {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px; /* Adds spacing between reviews */
+  padding-bottom: 10px;
+}
+
+.post:last-child {
+  border-bottom: none;
+}
+
+.post-date {
+  display: flex;
+  align-items: center; /* Centers the icon vertically */
+  justify-content: center;
+  margin-right: 0.5rem; /* Adds space between the star and the text */
+}
+
+.file-box {
+  position: relative;
+  margin-bottom: 9px;
+}
+
+.file-box.Review {
+  color: white;
+  /* Ensure this takes up the remaining width if needed */
+  flex: 1;
+}
+
+.file-box p {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0px;
+}
+
+.post h5 {
+  position: relative;
+  display: block;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 600;
+  margin-bottom: 0px;
+  margin: 0px;
+}
+
+/* Responsive styles for larger screens */
+@media (min-width: 768px) {
+  .review-section {
+    flex-direction: row; /* Change to row for larger screens */
+  }
+
+  .section {
+    max-width: 48%;
+  }
+
+  .dropdown-item {
+    white-space: nowrap; /* Prevent text from wrapping */
+  }
+
+  .dropdown-toggle {
+    white-space: nowrap; /* Prevent text from wrapping */
+  }
+}

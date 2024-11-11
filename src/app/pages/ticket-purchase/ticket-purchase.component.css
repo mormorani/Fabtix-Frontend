@@ -1,0 +1,98 @@
+.checkout-title {
+  border-bottom: 2px solid #efefef;
+  padding-bottom: 25px;
+}
+
+.card-bg {
+  border: 1px solid #efefef;
+  background-color: #ffffff;
+  border-radius: 5px;
+  color: black;
+  font-family: "Roboto", sans-serif !important;
+}
+
+.checkout-block {
+  margin-top: 40px;
+}
+
+.header h4 {
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 0;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.content {
+  padding: 0 30px 30px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+
+.quantity-list button {
+  background-color: #f9f9f9 !important;
+  color: #717171 !important;
+  width: fit-content;
+}
+
+.content .form-control {
+  background-color: #f9f9f9 !important;
+}
+
+.form-control {
+  font-size: 14px !important;
+  color: #717171 !important;
+  transition: none !important;
+  border: 1px solid #efefef !important;
+  min-height: 40px;
+  padding: 0 15px !important;
+  border-radius: 3px !important;
+}
+
+.h_50 {
+  height: 50px;
+}
+
+input {
+  outline: none;
+}
+
+.dropdown-item:active {
+  background-color: #e9ecef;
+  color: #000;
+}
+
+.main-btn {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 400;
+  text-align: center;
+  background: #6ac045;
+  height: 50px;
+  display: inline-block;
+  line-height: 50px;
+  padding: 0 30px;
+  border-radius: 3px;
+  border: 1px solid #6ac045;
+}
+
+.dropdown-menu {
+  overflow-y: scroll;
+  max-height: 120px;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.card-icon {
+  position: absolute;
+  right: 27px;
+  top: 18%;
+  font-size: 1.5rem;
+  color: #888;
+}

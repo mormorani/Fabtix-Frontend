@@ -1,0 +1,113 @@
+.auth-content {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.roundcorner {
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 1px 4px 22px -8px #0004;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column; /* Default to column for small screens */
+}
+
+.left-section,
+.right-section {
+  flex: 1; /* Allows sections to grow equally */
+  box-shadow: 1px 4px 22px -8px #0004;
+  overflow: hidden; /* Ensures that child elements respect the border radius */
+}
+
+.left-section {
+  padding: 50px;
+  background: linear-gradient(-45deg, #dcd7e0, #fff);
+  color: black;
+}
+
+.roundcorner .left-section {
+  width: 100%;
+}
+
+.roundcorner .right-section {
+  width: 100%;
+  min-height: 50vh; /* Set minimum height to 50% of the viewport height */
+  height: auto; /* Allow it to grow if there is more content */
+}
+
+.left-section h3 {
+  margin-top: 25%;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.left-section input {
+  border: none;
+  margin: 15px 0px;
+  border-bottom: 1px solid #4f30677d;
+  padding: 7px 9px;
+  background: transparent;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.submit {
+  border: none;
+  padding: 15px 70px;
+  border-radius: 8px;
+  display: block;
+  margin: auto;
+  margin-top: 120px;
+  background: #557697;
+  color: #fff;
+  font-weight: bold;
+}
+
+.right-section {
+  color: #fff;
+  background: rgba(168, 121, 121, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%; /* Make right section full-width */
+}
+
+.right-text {
+  text-align: center;
+}
+
+.right-text h2 {
+  font-size: 2.5em; /* Increase font size */
+  font-weight: 500;
+  font-family: "Lobster", cursive; /* Example cursive font */
+  margin: 0;
+}
+
+.right-text h5 {
+  font-size: 1em;
+  font-weight: 400;
+  font-family: "Lobster", cursive; /* Matching cursive font */
+  margin-top: 0.5em;
+}
+
+.top_link img {
+  width: 28px;
+  padding-right: 7px;
+  margin-top: -3px;
+}
+
+/* Responsive styles for larger screens */
+@media (min-width: 768px) {
+  .roundcorner {
+    flex-direction: row; /* Switch to row layout for larger screens */
+  }
+
+  .left-section {
+    width: 40%; /* 40% width for side-by-side layout on large screens */
+  }
+
+  .right-section {
+    width: 60%; /* 60% width for side-by-side layout on large screens */
+  }
+}

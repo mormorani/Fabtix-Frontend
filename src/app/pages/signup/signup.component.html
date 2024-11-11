@@ -1,0 +1,143 @@
+<div class="auth-content container">
+  <div class="roundcorner">
+    <div class="left-section">
+      <div class="top_link">
+        <!-- <a href="#" aria-label="Return to Home Page"
+          ><img
+            src="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeftCircle-48.png"
+            alt=""
+          />Return home</a
+        > -->
+        <a href="#" aria-label="Return to Home Page"
+          ><img
+            src="../../../assets/images/chevron-left-circle-2-48.png"
+            alt=""
+          />Return home</a
+        >
+      </div>
+      <div class="form">
+        <h3>SIGN UP</h3>
+        <form
+          [formGroup]="signupForm"
+          (ngSubmit)="onSubmit()"
+          novalidate
+          aria-label="Artist Signup Form"
+        >
+          <div class="form-group">
+            <label for="name" class="visually-hidden">Full Name:</label>
+            <input
+              formControlName="name"
+              type="text"
+              id="name"
+              class="form-control"
+              placeholder="FULLNAME"
+              aria-label="Enter your full name"
+              [ngClass]="{
+                'is-invalid':
+                  signupForm.get('name')?.invalid &&
+                  signupForm.get('name')?.touched
+              }"
+            />
+            <div class="invalid-feedback">Please enter a valid full name.</div>
+          </div>
+          <div class="form-group">
+            <label for="email" class="visually-hidden">Email:</label>
+            <input
+              formControlName="email"
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="EMAIL"
+              aria-label="Enter your email"
+              [ngClass]="{
+                'is-invalid':
+                  signupForm.get('email')?.invalid &&
+                  signupForm.get('email')?.touched
+              }"
+            />
+            <div class="invalid-feedback">Please enter a valid email.</div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="visually-hidden">Password:</label>
+            <input
+              formControlName="password"
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="PASSWORD"
+              aria-label="Enter your password"
+              [ngClass]="{
+                'is-invalid':
+                  signupForm.get('password')?.invalid &&
+                  signupForm.get('password')?.touched
+              }"
+            />
+            <div class="invalid-feedback">Please enter a valid password.</div>
+          </div>
+          <div class="form-group">
+            <label for="genre" class="visually-hidden">Genre:</label>
+            <input
+              formControlName="genre"
+              type="text"
+              id="genre"
+              class="form-control"
+              placeholder="GENRE"
+              aria-label="Enter your genre"
+              [ngClass]="{
+                'is-invalid':
+                  signupForm.get('genre')?.invalid &&
+                  signupForm.get('genre')?.touched
+              }"
+            />
+            <div class="invalid-feedback">Please enter a valid genre.</div>
+          </div>
+          <div class="form-group">
+            <label for="image" class="visually-hidden">Artist Image URL:</label>
+            <input
+              type="text"
+              formControlName="image"
+              id="image"
+              class="form-control"
+              placeholder="ARTIST IMAGE URL"
+              aria-label="Enter your artist image URL"
+            />
+          </div>
+          <div class="form-group">
+            <label for="youtubeLink" class="visually-hidden"
+              >Artist YouTube URL:</label
+            >
+            <input
+              type="text"
+              formControlName="youtubeLink"
+              id="youtubeLink"
+              class="form-control"
+              placeholder="YOUTUBE URL"
+              aria-label="Enter your YouTube URL"
+            />
+          </div>
+          <button
+            type="submit"
+            class="submit"
+            [disabled]="signupForm.invalid || loading"
+            aria-label="Submit Signup Form"
+          >
+            <!-- Loading spinner inside the button -->
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm me-2"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Sign Up
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="right-section">
+      <div class="right-text">
+        <h2>Artist Sign-Up</h2>
+        <h5>Share Your Art</h5>
+      </div>
+    </div>
+  </div>
+</div>

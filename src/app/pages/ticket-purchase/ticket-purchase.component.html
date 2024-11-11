@@ -1,0 +1,357 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap"
+  rel="stylesheet"
+/>
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="checkout-title">
+          <h3>Order Confirmation</h3>
+        </div>
+      </div>
+
+      <!-- Ticket Selection Section -->
+      <div class="col-lg-12 col-md-12">
+        <div class="checkout-block">
+          <div class="card-bg">
+            <div class="header">
+              <h4>Select Number of Tickets</h4>
+            </div>
+            <div class="content">
+              <div class="form-group mt-4">
+                <label class="form-label">Number of Tickets*</label>
+                <select
+                  formControlName="ticketQuantity"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      checkoutForm.get('ticketQuantity')?.invalid &&
+                      checkoutForm.get('ticketQuantity')?.touched
+                  }"
+                >
+                  <option value="" disabled>Select Number of Tickets</option>
+                  <option
+                    *ngFor="let quantity of [1, 2, 3, 4, 5]"
+                    [value]="quantity"
+                  >
+                    {{ quantity }}
+                  </option>
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid quantity.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Billing Information Section -->
+          <div class="card-bg mt-5">
+            <div class="header">
+              <h4>Billing information</h4>
+            </div>
+            <div class="content">
+              <div class="row">
+                <!-- First Name -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">First Name*</label>
+                    <input
+                      formControlName="firstName"
+                      type="text"
+                      class="form-control h_50"
+                      placeholder="First Name"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('firstName')?.invalid &&
+                          checkoutForm.get('firstName')?.touched
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a valid first name.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Last Name -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">Last Name*</label>
+                    <input
+                      formControlName="lastName"
+                      type="text"
+                      class="form-control h_50"
+                      placeholder="Last Name"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('lastName')?.invalid &&
+                          checkoutForm.get('lastName')?.touched
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a valid last name.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">Email*</label>
+                    <input
+                      formControlName="email"
+                      type="email"
+                      class="form-control h_50"
+                      placeholder="Email"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('email')?.invalid &&
+                          checkoutForm.get('email')?.touched
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a valid email.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Address -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">Address*</label>
+                    <input
+                      formControlName="address"
+                      type="text"
+                      class="form-control h_50"
+                      placeholder="Address"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('address')?.invalid &&
+                          checkoutForm.get('address')?.touched
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a valid address.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Country -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">Country*</label>
+                    <select
+                      formControlName="country"
+                      class="form-control h_50"
+                      (change)="onCountryChange($event)"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('country')?.invalid &&
+                          checkoutForm.get('country')?.touched
+                      }"
+                    >
+                      <option value="" disabled>Select Country</option>
+                      <option
+                        *ngFor="let country of countries"
+                        [value]="country"
+                      >
+                        {{ country }}
+                      </option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a valid country.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- State -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">State*</label>
+                    <input
+                      formControlName="state"
+                      type="text"
+                      class="form-control h_50"
+                      placeholder="State"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('state')?.invalid &&
+                          checkoutForm.get('state')?.touched
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a valid state.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- City -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4" *ngIf="cities.length > 0">
+                    <label class="form-label">City*</label>
+                    <select
+                      formControlName="city"
+                      class="form-control h_50"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('city')?.invalid &&
+                          checkoutForm.get('city')?.touched
+                      }"
+                    >
+                      <option value="" disabled>Select City</option>
+                      <option *ngFor="let city of cities" [value]="city">
+                        {{ city }}
+                      </option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Please select a valid city.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Zip -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">Zip/Post Code*</label>
+                    <input
+                      formControlName="zip"
+                      type="text"
+                      class="form-control h_50"
+                      placeholder="Zip"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('zip')?.invalid &&
+                          checkoutForm.get('zip')?.touched
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a valid zip.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Information -->
+          <div class="card-bg mt-5">
+            <div class="header">
+              <h4>
+                Total Payable Amount : {{ getTotalPrice() | currency : 'USD' }}
+              </h4>
+            </div>
+            <div class="content">
+              <div class="row">
+                <div class="col-lg-12 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">Card number*</label>
+                    <div class="input-wrapper">
+                      <i
+                        *ngIf="cardType === 'Visa'"
+                        class="fa-brands fa-cc-visa card-icon"
+                      ></i>
+                      <i
+                        *ngIf="cardType === 'MasterCard'"
+                        class="fa-brands fa-cc-mastercard card-icon"
+                      ></i>
+                      <i
+                        *ngIf="cardType === 'American Express'"
+                        class="fa-brands fa-cc-amex card-icon"
+                      ></i>
+                      <i
+                        *ngIf="cardType === 'Discover'"
+                        class="fa-brands fa-cc-discover card-icon"
+                      ></i>
+                      <i
+                        *ngIf="cardType === 'JCB'"
+                        class="fa-brands fa-cc-jcb card-icon"
+                      ></i>
+                      <input
+                        formControlName="cardNumber"
+                        type="text"
+                        class="form-control h_50"
+                        placeholder="Credit"
+                        (input)="cardType = detectCardType()"
+                        [ngClass]="{
+                          'is-invalid':
+                            checkoutForm.get('cardNumber')?.invalid &&
+                            checkoutForm.get('cardNumber')?.touched
+                        }"
+                      />
+                      <div class="invalid-feedback">
+                        Please enter a valid card number.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Expiry Date Field -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">Expiry date*</label>
+                    <input
+                      formControlName="expiryDate"
+                      type="text"
+                      class="form-control h_50"
+                      placeholder="MM/YY"
+                      maxlength="5"
+                      (input)="formatExpiryDate($event)"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('expiryDate')?.invalid &&
+                          checkoutForm.get('expiryDate')?.touched
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a valid expiry date (MM/YY).
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CVV Field -->
+                <div class="col-lg-6 col-md-12">
+                  <div class="form-group mt-4">
+                    <label class="form-label">CVV*</label>
+                    <input
+                      formControlName="cvv"
+                      type="text"
+                      class="form-control h_50"
+                      placeholder="CVV"
+                      maxlength="4"
+                      [ngClass]="{
+                        'is-invalid':
+                          checkoutForm.get('cvv')?.invalid &&
+                          checkoutForm.get('cvv')?.touched
+                      }"
+                    />
+                    <div class="invalid-feedback">
+                      Please enter a valid CVV.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Confirm & Pay button -->
+                <div class="col-lg-12 col-md-12">
+                  <button
+                    class="main-btn w-100 mt-5"
+                    type="submit"
+                    [disabled]="isSubmitting"
+                  >
+                    <!-- Loading spinner inside the button -->
+                    <span
+                      *ngIf="isSubmitting"
+                      class="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Confirm &amp; Pay
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

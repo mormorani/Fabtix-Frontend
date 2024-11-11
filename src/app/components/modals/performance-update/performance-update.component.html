@@ -1,0 +1,94 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="performanceUpdateModalLabel">
+    {{ title }}
+  </h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="performanceForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="date" class="form-label">Performance Date</label>
+      <input
+        type="date"
+        id="date"
+        class="form-control"
+        formControlName="date"
+      />
+      <div
+        *ngIf="
+          performanceForm.get('date')?.invalid &&
+          performanceForm.get('date')?.touched
+        "
+        class="invalid-feedback"
+      >
+        Date is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">Performance Location</label>
+      <input
+        type="text"
+        id="location"
+        class="form-control"
+        formControlName="location"
+      />
+      <div
+        *ngIf="
+          performanceForm.get('location')?.invalid &&
+          performanceForm.get('location')?.touched
+        "
+        class="invalid-feedback"
+      >
+        Location is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Performance Price</label>
+      <input
+        type="number"
+        id="price"
+        class="form-control"
+        formControlName="price"
+        min="0"
+      />
+      <div
+        *ngIf="
+          performanceForm.get('price')?.invalid &&
+          performanceForm.get('price')?.touched
+        "
+        class="invalid-feedback"
+      >
+        Price is required and must be a positive number.
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="activeModal.dismiss('cancel click')"
+  >
+    Close
+  </button>
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="performanceForm.invalid || loading"
+    aria-label="Save performance details"
+  >
+    <!-- Loading spinner inside the button -->
+    <span
+      *ngIf="loading"
+      class="spinner-border spinner-border-sm me-2"
+      role="status"
+      aria-hidden="true"
+    ></span
+    >{{ btnTitle }}
+  </button>
+</div>

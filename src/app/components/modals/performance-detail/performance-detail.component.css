@@ -1,0 +1,44 @@
+h5 {
+    color: #000;
+  }
+  
+  .blue.darken-2 {
+    background-color: #1976d2 !important;
+  }
+  
+  .waves-effect {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    user-select: none;
+    vertical-align: middle;
+    z-index: 1;
+    transition: 0.3s ease-out;
+  }
+  
+  .btn {
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+    outline: 0;
+    border: none;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 16px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+      0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .z-depth-1-half,
+  .btn:hover,
+  .btn-large:hover,
+  .btn-small:hover,
+  .btn-floating:hover {
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12),
+      0 3px 1px -1px rgba(0, 0, 0, 0.2);
+  }
+  

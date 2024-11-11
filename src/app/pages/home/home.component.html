@@ -1,0 +1,171 @@
+<link
+  href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap"
+  rel="stylesheet"
+/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<div class="home-content container mt-4">
+  <div class="header-section">
+    <h1>Discover the Best Live Performances.</h1>
+    <button
+      type="button"
+      (click)="navigateToSearch()"
+      aria-label="Get Tickets Now"
+    >
+      Get Tickets Now
+    </button>
+  </div>
+  <div class="review-section">
+    <div class="section left-section">
+      <h2>Reviews</h2>
+      <div class="review-form">
+        <form
+          [formGroup]="reviewForm"
+          (ngSubmit)="submitReview()"
+          aria-label="Performance Review Form"
+        >
+          <label id="performanceLabel">Select Performance:</label>
+          <div class="dropdown showList">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              (click)="openDropdown()"
+              id="dropdownMenuButton1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              aria-labelledby="performanceLabel"
+            >
+              {{ selectedPerformance || 'Select a Performance' }}
+            </button>
+            <ul
+              class="dropdown-menu w-100"
+              aria-labelledby="dropdownMenuButton1"
+            >
+              <li *ngFor="let performance of performances">
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  (click)="selectPerformance(performance._id)"
+                >
+                  {{
+                    performance.name
+                      ? performance.name +
+                        ' by ' +
+                        performance.artistName +
+                        ' in ' +
+                        performance.date
+                      : performance.artistName +
+                        ' at ' +
+                        performance.location +
+                        ' in ' +
+                        performance.date
+                  }}</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div
+            *ngIf="dropdownOpened && !selectedPerformance"
+            class="error"
+            aria-live="polite"
+          >
+            You must select a performance.
+          </div>
+
+          <label for="name">Name:</label>
+          <input
+            placeholder="Enter your name"
+            id="name"
+            formControlName="name"
+            aria-label="Enter your name"
+          />
+          <div
+            *ngIf="
+              reviewForm.controls['name'].invalid &&
+              reviewForm.controls['name'].touched
+            "
+            class="error"
+            aria-live="polite"
+          >
+            You must provide a name.
+          </div>
+
+          <label for="email">Email:</label>
+          <input
+            placeholder="Enter your email address"
+            id="email"
+            formControlName="email"
+            aria-label="Enter your email address"
+          />
+          <div
+            *ngIf="
+              reviewForm.controls['email'].invalid &&
+              reviewForm.controls['email'].touched
+            "
+            class="error"
+            aria-live="polite"
+          >
+            You must provide an email address.
+          </div>
+
+          <label for="review">Review:</label>
+          <textarea
+            id="review"
+            class="review"
+            col="30"
+            formControlName="review"
+            aria-label="Enter your review"
+          ></textarea>
+          <div
+            *ngIf="
+              reviewForm.controls['review'].invalid &&
+              reviewForm.controls['review'].touched
+            "
+            class="error"
+            aria-live="polite"
+          >
+            You must provide a review text.
+          </div>
+
+          <button
+            type="submit"
+            [disabled]="reviewForm.invalid"
+            class="btn1 btn"
+            aria-label="Submit Review"
+          >
+            <i class="fa fa-paper-plane fa-lg" style="color: white"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="section right-section">
+      <div class="carousel-inner-data container1">
+        <ul class="no-padding" aria-label="User reviews list">
+          <li *ngFor="let review of reviewers">
+            <div class="post">
+              <div class="post-date" aria-hidden="true">
+                <i
+                  class="fa fa-fw fa-star"
+                  style="font-size: 24px; color: white; text-align: center"
+                ></i>
+              </div>
+              <div class="file-box Review">
+                <h5 style="color: white">
+                  {{
+                    review.performance?.name
+                      ? review.performance.name +
+                        ' By ' +
+                        review.performance?.artist?.name
+                      : review.performance.artist.name
+                  }}
+                </h5>
+                <p style="color: white">
+                  {{ review.reviewerName }}: "{{ review.review }}"
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

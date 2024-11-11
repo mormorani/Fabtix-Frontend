@@ -1,0 +1,19 @@
+.custom-close {
+  position: absolute; /* Positioning it to the right corner */
+  top: 15px; /* Align vertically */
+  right: 15px; /* Align horizontally */
+  font-size: 1.5rem; /* Make it bigger */
+  color: #333; /* Darker color for visibility */
+  border: none; /* Remove border */
+  background: none; /* Remove background */
+  cursor: pointer; /* Pointer cursor */
+}
+
+.custom-close:hover {
+  color: #000; /* Darker on hover */
+}
+
+p,
+h4 {
+  color: #000;
+}

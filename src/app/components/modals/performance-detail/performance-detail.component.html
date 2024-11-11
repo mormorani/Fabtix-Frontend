@@ -1,0 +1,55 @@
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+<div class="modal-header">
+  <h5 class="modal-title" id="performanceDetailsModalLabel">
+    Artist Performance Details
+  </h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <table
+      class="table table-responsive bordered highlight centered hoverable z-depth-2"
+      *ngIf="performances.length"
+      aria-describedby="performanceDetailsModalLabel"
+      aria-label="List of performances"
+    >
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Date</th>
+          <th scope="col">Location</th>
+          <th scope="col">Price</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let performance of performances; let index = index">
+          <td>{{ index + 1 }}</td>
+          <!-- Adding 1 to index for display purposes -->
+          <td>{{ performance.date | date : 'yyyy-MM-dd' }}</td>
+          <td>{{ performance.location }}</td>
+          <td>{{ performance.price | currency }}</td>
+          <!-- Currency pipe for formatting price -->
+          <td>
+            <a
+              (click)="openUpdatePerformanceModal(performance)"
+              class="btn waves-effect waves-light blue darken-2"
+              attr.aria-label="Edit performance details for {{
+                performance.location
+              }} on {{ performance.date | date : 'yyyy-MM-dd' }}"
+              ><i class="material-icons" style="font-size: 15px">edit</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

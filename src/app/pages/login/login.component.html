@@ -1,0 +1,90 @@
+<div class="auth-content container">
+    <div class="roundcorner">
+      <div class="left-section">
+        <div class="top_link">
+          <!-- <a href="#" aria-label="Return to Home Page"
+            ><img
+              src="https://cdn0.iconfinder.com/data/icons/navigation-set-arrows-part-one/32/ChevronLeftCircle-48.png"
+              alt=""
+            />Return home</a
+          > -->
+          <a href="#" aria-label="Return to Home Page"
+          ><img
+            src="../../../assets/images/chevron-left-circle-2-48.png"
+            alt=""
+          />Return home</a
+        >
+        </div>
+        <div class="form">
+          <h3>LOGIN</h3>
+          <form
+            [formGroup]="loginForm"
+            (ngSubmit)="onLogin()"
+            aria-label="Artist Login Form"
+          >
+            <div class="form-group">
+              <label for="email" class="visually-hidden">Email:</label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-control"
+                placeholder="EMAIL"
+                aria-label="Enter your email"
+                [ngClass]="{
+                  'is-invalid':
+                    loginForm.get('email')?.invalid &&
+                    loginForm.get('email')?.touched
+                }"
+                required
+                aria-required="true"
+              />
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="form-group">
+              <label for="password" class="visually-hidden">Password:</label>
+              <input
+                type="password"
+                formControlName="password"
+                id="password"
+                class="form-control"
+                placeholder="PASSWORD"
+                aria-label="Enter your password"
+                [ngClass]="{
+                  'is-invalid':
+                    loginForm.get('password')?.invalid &&
+                    loginForm.get('password')?.touched
+                }"
+                required
+                aria-required="true"
+              />
+              <div class="invalid-feedback">Please enter a valid password.</div>
+            </div>
+  
+            <button
+              type="submit"
+              class="submit"
+              [disabled]="loginForm.invalid || loading"
+              aria-label="Submit Login Form"
+            >
+              <!-- Loading spinner inside the button -->
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm me-2"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="right-text">
+          <h2>Artist Login</h2>
+          <h5>Share Your Art</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+  
