@@ -1,4 +1,6 @@
-# FabtixFrontend
+# Fabtix-Frontend
+
+A ticket-buying and performance review platform
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
 
