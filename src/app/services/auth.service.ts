@@ -17,11 +17,11 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   private apiUrl =
-    'https://us-central1-backend-f52e5.cloudfunctions.net/api/login';
+    'https://us-central1-fabtixapp.cloudfunctions.net/api/login';
   private url =
-    'https://us-central1-backend-f52e5.cloudfunctions.net/api/signup';
+    'https://us-central1-fabtixapp.cloudfunctions.net/api/signup';
   private api =
-    'https://us-central1-backend-f52e5.cloudfunctions.net/api/artist';
+    'https://us-central1-fabtixapp.cloudfunctions.net/api/artist';
 
   // Handle login and store token in localStorage
   login(email: string, password: string): Observable<any> {

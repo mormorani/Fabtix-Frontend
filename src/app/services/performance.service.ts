@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class PerformanceService {
 
   private baseUrl =
-    'https://us-central1-backend-f52e5.cloudfunctions.net/api/api/performances';
+    'https://us-central1-fabtixapp.cloudfunctions.net/api/api/performances';
 
   constructor(private http: HttpClient) {}
 

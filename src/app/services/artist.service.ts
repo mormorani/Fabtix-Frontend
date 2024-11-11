@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
 export class ArtistService {
 
   private apiUrl =
-    'https://us-central1-backend-f52e5.cloudfunctions.net/api/api/artists'; // Replace with your actual API URL
+    'https://us-central1-fabtixapp.cloudfunctions.net/api/api/artists'; // Replace with your actual API URL
 
   constructor(private http: HttpClient) {}
 

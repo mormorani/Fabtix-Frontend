@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PurchaseService {
   private baseUrl =
-    'https://us-central1-backend-f52e5.cloudfunctions.net/api/api/purchases';
+    'https://us-central1-fabtixapp.cloudfunctions.net/api/api/purchases';
 
   constructor(private http: HttpClient) {}
 
