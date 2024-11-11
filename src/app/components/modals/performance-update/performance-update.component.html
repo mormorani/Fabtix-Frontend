@@ -10,7 +10,7 @@
   ></button>
 </div>
 <div class="modal-body">
-  <form [formGroup]="performanceForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="performanceForm">
     <div class="mb-3">
       <label for="date" class="form-label">Performance Date</label>
       <input
@@ -77,9 +77,10 @@
     Close
   </button>
   <button
-    type="submit"
+    type="button"
     class="btn btn-primary"
     [disabled]="performanceForm.invalid || loading"
+    (click)="savePerformanceDetails()"
     aria-label="Save performance details"
   >
     <!-- Loading spinner inside the button -->

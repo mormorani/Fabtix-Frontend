@@ -39,7 +39,7 @@ export class PerformanceUpdateComponent implements OnInit {
   }
 
   // Submit handler for the form
-  onSubmit(): void {
+  savePerformanceDetails(): void {
     if (this.performance) {
       // If performance exists, update it with the form values
       const updatedPerformance = {
@@ -74,6 +74,7 @@ export class PerformanceUpdateComponent implements OnInit {
       this.performanceService.createPerformance(newPerformance).subscribe(
         (result: any) => {
           this.loading = false;
+          console.log('Performance created successfully!'); // Notify on success
           // Close the modal after success
           this.activeModal.close(); // Close the modal after creating the performance
         },
