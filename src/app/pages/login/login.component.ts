@@ -52,6 +52,7 @@ export class LoginComponent {
           localStorage.setItem('accessToken', response.accessToken);
           localStorage.setItem('artistId', response.artistId);
           console.log(response.accessToken);
+          this.loading = false; // Reset loading state
 
           // Set the token and artistId in the AuthService
           this.authService.artistId = response.artistId;
@@ -68,8 +69,8 @@ export class LoginComponent {
           this.getPerformances();
         },
         (error: any) => {
-          this.loading = false; // Reset loading state
           console.error('Invalid credentials:', error);
+          this.loading = false; // Reset loading state
           this.toastr.error('Invalid credentials');
         }
       );

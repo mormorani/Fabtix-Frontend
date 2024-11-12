@@ -1,29 +1,78 @@
-# Fabtix-Frontend
+## 🎭 Fabtix Frontend (Sugestão) 🎭
 
-A ticket-buying and performance review platform
+Este projeto é o frontend de uma aplicação chamada "Fabtix", provavelmente para venda de ingressos para shows e eventos, construída com Angular e utilizando o Vite como ferramenta de build.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
+## 💻 Tecnologias Utilizadas
 
-## Development server
+- Angular
+- TypeScript
+- JavaScript
+- Vite
+- Ng-Bootstrap (Bootstrap para Angular)
+- ngx-toastr (Notificações)
+- RxJS (Programação Reativa)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## 📂 Arquitetura do Projeto
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 📁 src/app
 
-## Build
+Lógica principal da aplicação Angular.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- `app.module.ts` 📦: Módulo raiz da aplicação.
+- `app-routing.module.ts` 🧭: Define as rotas da aplicação.
+- `app.component.*`: Componente raiz.
+- `components/` 🧱: Componentes reutilizáveis.
+    - `modals/`: Componentes modais.
+        - `confirmation-modal/`: Modal de confirmação.
+        - `performance-detail/`: Detalhes de um evento/performance.
+        - `performance-update/`:  Atualização de informações de um evento.
+    - `navbar/`: Componente da barra de navegação.
+- `pages/` 📄: Componentes que representam as páginas principais da aplicação.
+    - `all-performances/`: Lista todos os eventos.
+    - `artist/`: Página de um artista.
+    - `home/`: Página inicial.
+    - `login/`: Página de login.
+    - `signup/`: Página de cadastro.
+    - `ticket-purchase/`: Página de compra de ingressos.
+- `services/` ⚙️: Serviços para comunicação com APIs e outras lógicas de negócio.
+    - `artist.service.*`, `auth.service.*`, `country.service.*`, `performance.service.*`, `purchase.service.*`, `review.service.*`: Serviços para gerenciamento de artistas, autenticação, países, eventos, compras e avaliações, respectivamente.
 
-## Running unit tests
+### 📁 src/assets
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Recursos estáticos como imagens, ícones, etc.
 
-## Running end-to-end tests
+- `images/`: Imagens dos artistas e outros recursos visuais.
+- `DeWatermark.ai_1725115689159.png`, `fabtix.ico`:  Imagens adicionais.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### 📁 dist/fabtix-frontend
 
-## Further help
+Contém os arquivos compilados e otimizados da aplicação, prontos para produção.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 📁 public
+
+Recursos públicos, tipicamente acessíveis diretamente pela URL.
+
+- `favicon.ico`: Ícone da aplicação.
+
+### 📄 Arquivos da raiz
+
+- `.angular/cache`: Cache do Angular CLI.
+- `.editorconfig`: Configurações do editor de código.
+- `.firebase`, `.firebaserc`: Configurações do Firebase (provavelmente para hosting e/ou outros serviços).
+- `.git`: Pasta do repositório Git.
+- `.gitignore`: Define os arquivos e pastas ignorados pelo Git.
+- `.vscodeignore`: Define arquivos e pastas ignorados pelo VS Code.
+- `.vscode`: Configurações do VS Code.
+- `angular.json` ⚙️: Configurações do projeto Angular.
+- `firebase.json` 🔥: Configurações do Firebase.
+- `package.json`, `package-lock.json` 📦: Gerenciamento de dependências.
+- `tsconfig.json`, `tsconfig.app.json`, `tsconfig.spec.json` ⚙️: Configurações do compilador TypeScript.
+
+## Próximos Passos
+
+- Adicionar instruções de instalação e execução do projeto.
+- Incluir links para a documentação (se houver) e repositório do backend (se aplicável).
+- Adicionar badges de status da build e outros indicadores relevantes.
+
+
