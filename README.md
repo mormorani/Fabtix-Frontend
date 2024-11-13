@@ -36,4 +36,4 @@ This is the frontend of Fabtix, a platform for exploring, buying tickets, and re
     ng serve
 
 ### Deployment
-The project is deployed to Firebase Hosting. You can view the live application here: https://your-firebase-project-url.web.app.  
+The project is deployed to Firebase Hosting. You can view the live application here: https://fabtixapp.web.app/.  
