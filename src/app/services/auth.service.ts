@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  private apiUrl =
-    'https://us-central1-fabtixapp.cloudfunctions.net/api/login';
-  private url =
-    'https://us-central1-fabtixapp.cloudfunctions.net/api/signup';
-  private api =
-    'https://us-central1-fabtixapp.cloudfunctions.net/api/artist';
+  private apiUrl = `${environment.backendUrl}/login`; // Use environment variable
+  private url = `${environment.backendUrl}/signup`; // Use environment variable
+  private api = `${environment.backendUrl}/artist`; // Use environment variable
+
+  // private apiUrl =
+  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/login';
+  // private url =
+  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/signup';
+  // private api =
+  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/artist';
 
   // Handle login and store token in localStorage
   login(email: string, password: string): Observable<any> {

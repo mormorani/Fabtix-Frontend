@@ -27,13 +27,48 @@ This is the frontend of Fabtix, a platform for exploring, buying tickets, and re
 - **Firebase CLI**: Install via `npm install -g firebase-tools`
 
 ### Steps
+
 1. **Clone the Repository**:
-   git clone https://github.com/yourusername/Fabtix-Frontend.git
-   cd Fabtix-Frontend
+    ```bash
+    git clone https://github.com/yourusername/Fabtix-Frontend.git
+    cd Fabtix-Frontend
+    ```
+
 2. **Install Dependencies**:
+    ```bash
     npm install
-3. **Run the project**:
+    ```
+
+3. **Create Environment Files**:
+    The project requires two environment configuration files to run locally and in production. Follow these steps to create them:
+
+    - Navigate to the `src/` directory in the project folder.
+    - Create a folder named `environments` if it doesn't already exist.
+    - Inside the `src/environments/` folder, create the following two files:
+
+      1. **`environment.ts` (Development)**
+      ```typescript
+      export const environment = {
+        production: false,
+        backendUrl: 'http://localhost:5000'  // Your local backend URL
+      };
+      ```
+
+      2. **`environment.prod.ts` (Production)**
+      ```typescript
+      export const environment = {
+        production: true,
+        backendUrl: 'https://your-production-backend-url.com'  // Your live backend URL
+      };
+      ```
+
+4. **Run the Project Locally**:
+    ```bash
     ng serve
+    ```
+
+    Your application will be available at `http://localhost:4200`.
+
 
 ### Deployment
-The project is deployed to Firebase Hosting. You can view the live application here: https://your-firebase-project-url.web.app.  
+The project is deployed to Firebase Hosting. You can view the live application here: [https://fabtixapp.web.app/](https://fabtixapp.web.app/).

@@ -34,33 +34,43 @@
               aria-expanded="false"
               aria-labelledby="performanceLabel"
             >
-              {{ selectedPerformance || 'Select a Performance' }}
+              {{ selectedPerformance || "Select a Performance" }}
             </button>
             <ul
               class="dropdown-menu w-100"
               aria-labelledby="dropdownMenuButton1"
             >
-              <li *ngFor="let performance of performances">
-                <a
-                  class="dropdown-item"
-                  href="#"
-                  (click)="selectPerformance(performance._id)"
-                >
-                  {{
-                    performance.name
-                      ? performance.name +
-                        ' by ' +
-                        performance.artistName +
-                        ' in ' +
-                        performance.date
-                      : performance.artistName +
-                        ' at ' +
-                        performance.location +
-                        ' in ' +
-                        performance.date
-                  }}</a
-                >
-              </li>
+              <ng-container
+                *ngIf="
+                  performances && performances.length > 0;
+                  else noPerformances
+                "
+              >
+                <li *ngFor="let performance of performances">
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    (click)="selectPerformance(performance._id)"
+                  >
+                    {{
+                      performance.name
+                        ? performance.name +
+                          " by " +
+                          performance.artistName +
+                          " in " +
+                          performance.date
+                        : performance.artistName +
+                          " at " +
+                          performance.location +
+                          " in " +
+                          performance.date
+                    }}</a
+                  >
+                </li>
+              </ng-container>
+              <ng-template #noPerformances>
+                <span>No performances available</span>
+              </ng-template>
             </ul>
           </div>
           <div
@@ -140,30 +150,38 @@
     <div class="section right-section">
       <div class="carousel-inner-data container1">
         <ul class="no-padding" aria-label="User reviews list">
-          <li *ngFor="let review of reviewers">
-            <div class="post">
-              <div class="post-date" aria-hidden="true">
-                <i
-                  class="fa fa-fw fa-star"
-                  style="font-size: 24px; color: white; text-align: center"
-                ></i>
+          <ng-container
+            *ngIf="reviewers && reviewers.length > 0; else noReviews"
+          >
+            <li *ngFor="let review of reviewers">
+              <div class="post">
+                <div class="post-date" aria-hidden="true">
+                  <i
+                    class="fa fa-fw fa-star"
+                    style="font-size: 24px; color: white; text-align: center"
+                  ></i>
+                </div>
+                <div class="file-box Review">
+                  <h5 style="color: white">
+                    {{
+                      review.performance?.name
+                        ? review.performance.name +
+                          " By " +
+                          review.performance?.artist?.name
+                        : review.performance.artist.name
+                    }}
+                  </h5>
+                  <p style="color: white">
+                    {{ review.reviewerName }}: "{{ review.review }}"
+                  </p>
+                </div>
               </div>
-              <div class="file-box Review">
-                <h5 style="color: white">
-                  {{
-                    review.performance?.name
-                      ? review.performance.name +
-                        ' By ' +
-                        review.performance?.artist?.name
-                      : review.performance.artist.name
-                  }}
-                </h5>
-                <p style="color: white">
-                  {{ review.reviewerName }}: "{{ review.review }}"
-                </p>
-              </div>
-            </div>
-          </li>
+            </li>
+          </ng-container>
+          <!-- This will show when there are no reviews -->
+          <ng-template #noReviews>
+            <span>No reviews yet</span>
+          </ng-template>
         </ul>
       </div>
     </div>

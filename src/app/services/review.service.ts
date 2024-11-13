@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReviewService {
-  private baseUrl =
-    'https://us-central1-backend-f52e5.cloudfunctions.net/api/api/reviews';
+  private baseUrl = `${environment.backendUrl}/api/reviews`; // Use environment variable
+
+  // private baseUrl =
+  //   'https://us-central1-fabtixapp.cloudfunctions.ne/api/api/reviews';
 
   constructor(private http: HttpClient) {}
 

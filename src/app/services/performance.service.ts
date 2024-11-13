@@ -1,14 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PerformanceService {
 
-  private baseUrl =
-    'https://us-central1-fabtixapp.cloudfunctions.net/api/api/performances';
+  private baseUrl = `${environment.backendUrl}/api/performances`; // Use environment variable
+
+  // private baseUrl =
+  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/api/performances';
 
   constructor(private http: HttpClient) {}
 
