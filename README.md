@@ -28,7 +28,7 @@ This is the frontend of Fabtix, a platform for exploring, buying tickets, and re
 
 ### Steps
 1. **Clone the Repository**:
-   git clone https://github.com/yourusername/Fabtix-Frontend.git
+   git clone https://github.com/mormorani/Fabtix-Frontend.git
    cd Fabtix-Frontend
 2. **Install Dependencies**:
     npm install
