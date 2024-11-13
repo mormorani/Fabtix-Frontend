@@ -29,11 +29,9 @@ This is the frontend of Fabtix, a platform for exploring, buying tickets, and re
 ### Steps
 
 1. **Clone the Repository**:
-    ```bash
-    git clone https://github.com/yourusername/Fabtix-Frontend.git
-    cd Fabtix-Frontend
-    ```
-
+   git clone https://github.com/mormorani/Fabtix-Frontend.git
+   cd Fabtix-Frontend
+   
 2. **Install Dependencies**:
     ```bash
     npm install
@@ -72,3 +70,4 @@ This is the frontend of Fabtix, a platform for exploring, buying tickets, and re
 
 ### Deployment
 The project is deployed to Firebase Hosting. You can view the live application here: [https://fabtixapp.web.app/](https://fabtixapp.web.app/).
+
