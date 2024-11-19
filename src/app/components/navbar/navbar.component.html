@@ -58,7 +58,24 @@
             class="dropdown-menu dropdown-menu-lg-end custom-dropdown"
             aria-labelledby="userDropdown"
           >
-            <li>
+              <!-- Links for unauthenticated users -->
+              <li *ngIf="!authService.isLoggedIn">
+                <a
+                  class="dropdown-item"
+                  routerLink="/login"
+                  (click)="closeNavbar()"
+                  aria-label="Navigate to Log In"
+                >Login</a>
+              </li>
+              <li *ngIf="!authService.isLoggedIn">
+                <a
+                  class="dropdown-item"
+                  routerLink="/signup"
+                  (click)="closeNavbar()"
+                  aria-label="Navigate to Sign Up"
+                >Sign Up</a>
+              </li>
+            <!-- <li>
               <a
                 class="dropdown-item"
                 routerLink="/login"
@@ -77,23 +94,17 @@
                 aria-label="Navigate to Sign Up"
                 >Sign Up</a
               >
-            </li>
-            <!-- Show this list item only if the user is logged in -->
-            <li *ngIf="authService.isLoggedIn">
-              <!-- ng-container acts as a logical wrapper that won’t create an actual HTML element in the DOM -->
-              <ng-container
-                *ngIf="authService.hasPerformances; else noPerformances"
-              >
-                <!-- If the user has performances, show the "Update Show" link -->
-                <a
-                  class="dropdown-item"
-                  (click)="updateShow(); closeNavbar()"
-                  routerLink=""
-                  aria-label="Update Show"
-                  >Update Show</a
-                >
-                <!-- Additional list item for creating a new show -->
-                <li>
+            </li> -->
+            <!-- Links for authenticated users -->
+            <ng-container *ngIf="authService.isLoggedIn">
+              <li>
+                <ng-container *ngIf="authService.hasPerformances; else noPerformances">
+                  <a
+                    class="dropdown-item"
+                    (click)="updateShow(); closeNavbar()"
+                    routerLink=""
+                    aria-label="Update Show"
+                  >Update Show</a>
                   <a
                     class="dropdown-item"
                     (click)="createNewShow(); closeNavbar()"
@@ -101,20 +112,27 @@
                     aria-label="Create New Show"
                     >Create New Show</a
                   >
-                </li>
-              </ng-container>
-              <!-- Template to display if the user does NOT have performances -->
+                </ng-container>
+              </li>
               <ng-template #noPerformances>
-                <!-- If the user has no performances, only show the "Create New Show" link -->
+                <li>
+                  <a
+                    class="dropdown-item"
+                    (click)="createNewShow(); closeNavbar()"
+                    routerLink=""
+                    aria-label="Create New Show"
+                  >Create New Show</a>
+                </li>
+              </ng-template>
+              <li>
                 <a
                   class="dropdown-item"
-                  (click)="createNewShow(); closeNavbar()"
+                  (click)="logout(); closeNavbar()"
                   routerLink=""
-                  aria-label="Create New Show"
-                  >Create New Show</a
-                >
-              </ng-template>
-            </li>
+                  aria-label="Logout"
+                >Logout</a>
+              </li>
+            </ng-container>
           </ul>
         </li>
       </ul>

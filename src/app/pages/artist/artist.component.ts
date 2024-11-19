@@ -4,7 +4,7 @@ import { ArtistService } from '../../services/artist.service';
 @Component({
   selector: 'app-artist',
   templateUrl: './artist.component.html',
-  styleUrl: './artist.component.css'
+  styleUrl: './artist.component.css',
 })
 export class ArtistComponent implements OnInit {
   artists: any[] = [];
@@ -30,9 +30,16 @@ export class ArtistComponent implements OnInit {
           ...artist,
           cardStyle: this.getRandomCardStyles(),
         }));
+
+        if (data.length === 0) {
+          // Notify the user if no artists are available
+          alert('No artists found at the moment.');
+        }
       },
       (error: any) => {
         console.error('Failed to fetch artists:', error);
+        // Notify the user about the error
+        alert('Failed to fetch artists. Please try again later.');
       }
     );
   }
@@ -50,5 +57,4 @@ export class ArtistComponent implements OnInit {
   isActive(index: number): boolean {
     return this.activeCardIndex === index;
   }
-
 }

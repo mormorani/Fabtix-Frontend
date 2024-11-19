@@ -1,27 +1,33 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { CountryService } from '../../services/country.service';
 import { ToastrService } from 'ngx-toastr';
 import { PurchaseService } from '../../services/purchase.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-ticket-purchase',
   templateUrl: './ticket-purchase.component.html',
-  styleUrl: './ticket-purchase.component.css'
+  styleUrl: './ticket-purchase.component.css',
 })
 export class TicketPurchaseComponent {
-
   ticketQuantity: number = 1; // Default to 1 ticket
   price: number | undefined; // Updated to number for price calculations
   performanceId!: string;
   checkoutForm!: FormGroup;
 
   countries: string[] = [];
-  cities: string[] = [];
   selectedCountry: string = '';
   cardType: string | undefined;
   isSubmitting: boolean = false; // For showing loading indicator
+  isFetchingCities: boolean = false;
+  isCreditNumberInvalid!: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,14 +54,7 @@ export class TicketPurchaseComponent {
       state: ['', Validators.required],
       city: ['', Validators.required],
       zip: ['', Validators.required],
-      cardNumber: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(16),
-          this.creditCardValidator,
-        ],
-      ],
+      cardNumber: ['', [Validators.required, Validators.minLength(16)]],
       expiryDate: ['', [Validators.required, this.expiryDateValidator]],
       cvv: [
         '',
@@ -82,15 +81,6 @@ export class TicketPurchaseComponent {
   onCountryChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.selectedCountry = input.value;
-    this.countryService.getCitiesByCountry(this.selectedCountry).subscribe(
-      (response) => {
-        this.cities = response.data;
-        this.checkoutForm.get('city')?.reset(); // Reset city selection
-      },
-      (error) => {
-        console.error('Error fetching cities:', error);
-      }
-    );
   }
 
   detectCardType(): string | undefined {
@@ -166,44 +156,54 @@ export class TicketPurchaseComponent {
     return emailPattern.test(value) ? null : { invalidEmail: true };
   }
 
-  // Custom validator for credit card number using the Luhn algorithm
-  creditCardValidator(control: AbstractControl) {
-    const value = control.value.replace(/\D/g, ''); // Remove any non-numeric characters
-    // Ensure the card number is of valid length (13 to 19 digits)
-    if (!/^\d{13,19}$/.test(value) || !this.isValidLuhn(value)) {
-      return { invalidCreditCard: true };
+  // Validate Credit Card Number with Luhn Algorithm
+  checkCreditCardNumber(event: Event) {
+    const input = event.target as HTMLInputElement;
+    // Remove any non-digit characters from the input value
+    let value = input.value.replace(/\D/g, '');
+
+    if (!value) {
+      this.isCreditNumberInvalid = true; // Set invalid if the input is empty or undefined
+      return;
     }
-    return null; // Valid card number
-  }
 
-  // Luhn algorithm function for validating credit card numbers
-  isValidLuhn(cardNumber: string): boolean {
+    const cleanedNumber = value.replace(/\D/g, ''); // Remove non-numeric characters
+
+    const cardNumberPattern =
+      /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$/;
+
+    // Check if card pattern matches
+    this.isCreditNumberInvalid = !cardNumberPattern.test(cleanedNumber);
+
+    // console.log(this.isCreditNumberInvalid);
     let sum = 0;
-    let shouldDouble = false;
-
-    for (let i = cardNumber.length - 1; i >= 0; i--) {
-      let digit = parseInt(cardNumber.charAt(i), 10);
-
-      if (shouldDouble) {
+    let double = false;
+    for (let i = cleanedNumber.length - 1; i >= 0; i--) {
+      let digit = parseInt(cleanedNumber.charAt(i), 10);
+      if (double) {
         digit *= 2;
         if (digit > 9) {
           digit -= 9;
         }
       }
       sum += digit;
-      shouldDouble = !shouldDouble;
+      double = !double;
     }
-    return sum % 10 === 0;
+    // console.log(sum);
+    // Checksum validation (Luhn algorithm)
+    this.isCreditNumberInvalid = this.isCreditNumberInvalid || sum % 10 !== 0;
+    // Detect card type and update the variable
+    this.cardType = this.detectCardType();
   }
 
   onSubmit(): void {
-    if (this.checkoutForm.valid) {
+    if (this.checkoutForm.valid && !this.isCreditNumberInvalid) {
       this.isSubmitting = true; // Show loading indicator
       this.purchaseService
         .makePurchase(this.performanceId, this.checkoutForm.get('email')?.value)
         .subscribe(
           (response: any) => {
-            console.log(response);
+            console.log('Purchase successful. Server response:', response);
             this.isSubmitting = false; // Hide loading indicator
             this.toastr.success(
               'The payment was successfully received. The tickets will be sent to your email.',
@@ -216,7 +216,7 @@ export class TicketPurchaseComponent {
             this.checkoutForm.reset(); // Reset form after successful purchase
           },
           (error: any) => {
-            console.error(error);
+            console.error('Error occurred during the purchase process:', error);
             this.isSubmitting = false; // Hide loading indicator
             this.toastr.error('Error in purchase. Please try again.');
           }

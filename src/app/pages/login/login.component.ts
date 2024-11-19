@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { PerformanceService } from '../../services/performance.service';
 import { ToastrService } from 'ngx-toastr';
@@ -8,10 +13,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
-
   loginForm!: FormGroup;
   loading = false; // Add a loading state
 
@@ -47,17 +51,8 @@ export class LoginComponent {
       const password = this.loginForm.value.password ?? '';
 
       this.authService.login(email, password).subscribe(
-        (response: { accessToken: string; artistId: string }) => {
-          // Store access token and artistId in localStorage
-          localStorage.setItem('accessToken', response.accessToken);
-          localStorage.setItem('artistId', response.artistId);
-          console.log(response.accessToken);
+        () => {
           this.loading = false; // Reset loading state
-
-          // Set the token and artistId in the AuthService
-          this.authService.artistId = response.artistId;
-          this.authService.isLoggedIn = true;
-          this.authService.loginStatus.next(this.authService.isLoggedIn);
 
           // Display success notification
           this.toastr.success('Login successful 🎉');
@@ -67,6 +62,22 @@ export class LoginComponent {
 
           // Fetch performances only after successful login
           this.getPerformances();
+
+          // this.loading = false; // Reset loading state
+
+          // // Set the token and artistId in the AuthService
+          // this.authService.artistId = response.artist._id;
+          // this.authService.isLoggedIn = true;
+          // this.authService.loginStatus.next(this.authService.isLoggedIn);
+
+          // // Display success notification
+          // this.toastr.success('Login successful 🎉');
+
+          // // Navigate to the main page
+          // this.router.navigate(['/']);
+
+          // // Fetch performances only after successful login
+          // this.getPerformances();
         },
         (error: any) => {
           console.error('Invalid credentials:', error);
@@ -85,12 +96,16 @@ export class LoginComponent {
           this.authService.hasPerformances = true;
         } else {
           this.authService.hasPerformances = false;
+          // Notify the artist if no performances are found
+          alert('You have not added any performances yet.');
         }
         console.log('Performances:', performances);
       },
       (error) => {
         if (error.status === 404) {
           console.log('The artist has not added any performances yet');
+          // Notify the artist with an alert
+          alert('You have not added any performances yet.');
         } else {
           console.error('Error fetching performances:', error);
           this.toastr.error('Error fetching performances');

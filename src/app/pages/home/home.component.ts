@@ -9,7 +9,7 @@ declare const $: any; // Declare the $ variable to avoid TypeScript errors
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit, OnDestroy {
   performances: any[] = []; // Initialize as an empty array
@@ -119,15 +119,21 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
 
         console.log(this.arrayReviews);
-        // Manually trigger change detection
+
+        // Manually trigger change detection to ensure the view updates
+        // This is necessary because the data changes asynchronously
+        // and Angular might not detect the changes automatically.
         this.cdr.markForCheck();
+
       },
       (error: any) => {
         console.error('Failed to fetch reviews:', error);
+        // Notify the user about the error
+        alert('Failed to fetch reviews. Please try again later.');
       }
     );
   }
-  
+
   selectPerformance(performanceId: string) {
     const selectedPerf = this.performances.find(
       (performance) => performance._id === performanceId
@@ -185,6 +191,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           // Handle other errors
           this.toastr.error('Failed to submit the review. Please try again.');
+          // Notify user with an alert as well
+          alert('Failed to submit the review. Please try again later.');
         }
       }
     );
@@ -206,5 +214,4 @@ export class HomeComponent implements OnInit, OnDestroy {
   navigateToSearch() {
     this.router.navigate(['/search']);
   }
-
 }

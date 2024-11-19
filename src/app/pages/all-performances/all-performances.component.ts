@@ -4,7 +4,7 @@ import { PerformanceService } from '../../services/performance.service';
 @Component({
   selector: 'app-all-performances',
   templateUrl: './all-performances.component.html',
-  styleUrl: './all-performances.component.css'
+  styleUrl: './all-performances.component.css',
 })
 export class AllPerformancesComponent implements OnInit {
   performances: any[] = [];
@@ -28,6 +28,8 @@ export class AllPerformancesComponent implements OnInit {
       },
       (error: any) => {
         console.error('Failed to fetch shows:', error);
+        // Notify the user about the error
+        alert('Failed to fetch shows. Please try again later.');
       }
     );
   }
@@ -107,5 +109,4 @@ export class AllPerformancesComponent implements OnInit {
   onSearch() {
     this.filterShows();
   }
-
 }

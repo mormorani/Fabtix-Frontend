@@ -10,16 +10,13 @@ declare var bootstrap: any; // Ensure bootstrap is globally available
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-
   constructor(
     public authService: AuthService,
     private modalService: NgbModal,
-    // private router: Router,
-    private performanceService: PerformanceService,
-    // private toastr: ToastrService
+    private performanceService: PerformanceService
   ) {}
 
   updateShow() {
@@ -88,9 +85,17 @@ export class NavbarComponent {
         },
         (error: any) => {
           console.error('Error fetching performances:', error);
+          // Notify the artist about the error
+          alert('Failed to fetch performances. Please try again later.');
         }
       );
+    } else {
+      // Notify the artist if artistId is not available
+      alert('Artist ID not found. Please log in again.');
     }
   }
 
+  logout(): void {
+    this.authService.logout();
+  }
 }

@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PerformanceUpdateComponent } from '../../components/modals/performance-update/performance-update.component';
 import { ConfirmationModalComponent } from '../../components/modals/confirmation-modal/confirmation-modal.component';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ArtistService } from '../../services/artist.service';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrl: './signup.component.css',
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
@@ -31,7 +36,14 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email, this.emailValidator]], // Custom email validator for format
-      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/),
+        ],
+      ],
       genre: ['', Validators.required],
       image: [''],
       youtubeLink: [''],
@@ -63,7 +75,7 @@ export class SignupComponent implements OnInit {
         // Handle the case when the artist is not found (404)
         if (error.status === 404) {
           // Artist not found, proceed with registration
-          console.log('Artist not found, proceed with registration');
+          //console.log('Artist not found, proceed with registration');
           this.addNewArtist();
         } else {
           // Log other errors and show a user-friendly message
@@ -81,11 +93,13 @@ export class SignupComponent implements OnInit {
 
     this.authService.signupArtist(artist).subscribe(
       (response: any) => {
-        console.log('Artist added:', response);
         this.loading = false; // Reset loading state
+
         this.toastr.success('Signup successful');
         this.openModal(); // Show the confirmation modal
         this.signupForm.reset(); // Clear the form on successful signup
+        // Navigate to the main page
+        this.router.navigate(['/']);
       },
       (error: any) => {
         console.error('Error adding artist:', error);
@@ -116,7 +130,16 @@ export class SignupComponent implements OnInit {
 
   // Opens a modal for updating performance information
   openPerformanceUpdateModal(): void {
-    this.modalService.open(PerformanceUpdateComponent);
+    //this.modalService.open(PerformanceUpdateComponent);
+
+    const modalRef = this.modalService.open(PerformanceUpdateComponent, {
+      backdrop: 'static',
+    });
+
+    // Passing the data (performance, title, btnTitle) to the modal component
+    modalRef.componentInstance.performance = null; // Pass performance data
+    modalRef.componentInstance.title = 'Create New Performance'; // Pass title for the modal
+    modalRef.componentInstance.btnTitle = 'Create'; // Pass the button title
   }
 
   // Triggered on form submission, starts the signup process if form is valid
@@ -128,5 +151,4 @@ export class SignupComponent implements OnInit {
       this.checkArtistExists(artistEmail); // Check if artist exists before proceeding
     }
   }
-
 }

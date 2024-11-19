@@ -9,9 +9,6 @@ import { environment } from '../../environments/environment';
 export class ReviewService {
   private baseUrl = `${environment.backendUrl}/api/reviews`; // Use environment variable
 
-  // private baseUrl =
-  //   'https://us-central1-fabtixapp.cloudfunctions.ne/api/api/reviews';
-
   constructor(private http: HttpClient) {}
 
   getReviews(performanceId: string): Observable<any[]> {

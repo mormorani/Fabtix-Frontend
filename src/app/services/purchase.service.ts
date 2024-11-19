@@ -9,9 +9,6 @@ import { environment } from '../../environments/environment';
 export class PurchaseService {
   private baseUrl = `${environment.backendUrl}/api/purchases`; // Use environment variable
 
-  // private baseUrl =
-  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/api/purchases';
-
   constructor(private http: HttpClient) {}
 
   makePurchase(performanceId: string, email: string): Observable<any> {

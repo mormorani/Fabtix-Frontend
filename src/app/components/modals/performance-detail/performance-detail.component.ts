@@ -6,7 +6,7 @@ import { PerformanceUpdateComponent } from '../performance-update/performance-up
 @Component({
   selector: 'app-performance-detail',
   templateUrl: './performance-detail.component.html',
-  styleUrl: './performance-detail.component.css'
+  styleUrl: './performance-detail.component.css',
 })
 export class PerformanceDetailComponent {
   artistId: string = '';
@@ -25,7 +25,7 @@ export class PerformanceDetailComponent {
   getPerformanceDetails() {
     // Retrieve artistId from localStorage
     this.artistId = localStorage.getItem('artistId') || '';
-    console.log(localStorage.getItem('artistId'));
+    //console.log(localStorage.getItem('artistId'));
     // Fetch performance details if artistId is available
     if (this.artistId) {
       this.performanceService.getPerformancesByArtistId().subscribe(
@@ -34,8 +34,14 @@ export class PerformanceDetailComponent {
         },
         (error) => {
           console.error('Error fetching performances:', error);
+          // Notify the artist about the error
+          alert('Failed to fetch performance details. Please try again later.');
         }
       );
+    }
+    else {
+      // Notify the artist if artistId is not available in localStorage
+      alert('Artist ID not found. Please log in again.');
     }
   }
 
@@ -59,5 +65,4 @@ export class PerformanceDetailComponent {
       }
     );
   }
-
 }

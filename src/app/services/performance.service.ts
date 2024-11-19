@@ -10,9 +10,6 @@ export class PerformanceService {
 
   private baseUrl = `${environment.backendUrl}/api/performances`; // Use environment variable
 
-  // private baseUrl =
-  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/api/performances';
-
   constructor(private http: HttpClient) {}
 
   getPerformances(): Observable<any> {
@@ -24,7 +21,8 @@ export class PerformanceService {
   }
 
   getPerformancesByArtistId(): Observable<any> {
-    const token = localStorage.getItem('accessToken'); // Retrieve token from storage
+    //const token = localStorage.getItem('accessToken'); // Retrieve token from storage
+    const token = localStorage.getItem('authToken'); // Retrieve token from storage
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`, // Include the JWT token in the request header
@@ -32,9 +30,10 @@ export class PerformanceService {
 
     return this.http.get<any>(`${this.baseUrl}/performances`, { headers });
   }
-
+  
   updatePerformance(performance: any): Observable<any> {
-    const token = localStorage.getItem('accessToken'); // Retrieve token from storage
+    //const token = localStorage.getItem('accessToken'); // Retrieve token from storage
+    const token = localStorage.getItem('authToken'); // Retrieve token from storage
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -48,7 +47,8 @@ export class PerformanceService {
   }
 
   createPerformance(performanceData: any): Observable<any> {
-    const token = localStorage.getItem('accessToken'); // Retrieve token from storage
+    //const token = localStorage.getItem('accessToken'); // Retrieve token from storage
+    const token = localStorage.getItem('authToken'); // Retrieve token from storage
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',

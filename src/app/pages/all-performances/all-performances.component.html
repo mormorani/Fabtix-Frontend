@@ -166,7 +166,7 @@
                       <td>{{ show.artist.name }}</td>
                       <td>{{ show.name }}</td>
                       <td>{{ show.location }}</td>
-                      <td>{{ show.price }}$</td>
+                      <td>{{ show.price | currency : 'USD' }}</td>
                       <td>{{ show.date | date : 'yyyy-MM-dd' }}</td>
                       <td>
                         <a

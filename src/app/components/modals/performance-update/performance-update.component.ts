@@ -60,6 +60,7 @@ export class PerformanceUpdateComponent implements OnInit {
           this.loading = false;
           // Handle error
           console.error('Error updating performance', error);
+          alert('Error updating performance. Please try again.'); // Notify on error
           //this.toastr.error('Error updating performance. Please try again.'); // Notify on error
         }
       );
@@ -82,6 +83,7 @@ export class PerformanceUpdateComponent implements OnInit {
           this.loading = false;
           // Handle error
           console.error('Error creating performance', error);
+          alert('Error creating performance. Please try again.'); // Notify on error
           //this.toastr.error('Error creating performance. Please try again.'); // Notify on error
         }
       );

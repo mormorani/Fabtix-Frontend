@@ -9,9 +9,6 @@ import { environment } from '../../environments/environment';
 export class ArtistService {
   private apiUrl = `${environment.backendUrl}/api/artists`; // Use environment variable
 
-  // private apiUrl =
-  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/api/artists'; // Replace with your actual API URL
-
   constructor(private http: HttpClient) {}
 
   getAllArtists(): Observable<any[]> {

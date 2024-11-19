@@ -1,12 +1,23 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  Observable,
+  tap,
+  throwError,
+} from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  private apiUrl = `${environment.backendUrl}/login`; // Use environment variable
+  private url = `${environment.backendUrl}/signup`; // Use environment variable
+  private api = `${environment.backendUrl}/artist`; // Use environment variable
 
   isLoggedIn: boolean = false;
   hasPerformances: boolean = false;
@@ -15,26 +26,22 @@ export class AuthService {
   );
   artistId: String = '';
 
-  constructor(private http: HttpClient) {}
-
-  private apiUrl = `${environment.backendUrl}/login`; // Use environment variable
-  private url = `${environment.backendUrl}/signup`; // Use environment variable
-  private api = `${environment.backendUrl}/artist`; // Use environment variable
-
-  // private apiUrl =
-  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/login';
-  // private url =
-  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/signup';
-  // private api =
-  //   'https://us-central1-fabtixapp.cloudfunctions.net/api/artist';
+  constructor(private http: HttpClient, private router: Router) {}
 
   // Handle login and store token in localStorage
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(this.apiUrl, { email, password }).pipe(
       tap((response) => {
         localStorage.setItem('authToken', response.accessToken);
+        this.artistId = response.artist._id; // Set artist ID
+        this.isLoggedIn = true; // Update login status
+        this.loginStatus.next(true); // Notify observers about login status
         // Fetch artistId after successful login
         this.fetchArtistId();
+      }),
+      catchError((error) => {
+        console.error('Login failed:', error.message);
+        return throwError(() => new Error('Login failed. Please try again.'));
       })
     );
   }
@@ -59,15 +66,9 @@ export class AuthService {
   }
 
   // Method to get artist ID from localStorage
-  getLoggedInArtistId(): string | null {
-    return localStorage.getItem('artistId');
-  }
-
-  // Method to remove token and artist ID (for logout)
-  logout(): void {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('artistId');
-  }
+  // getLoggedInArtistId(): string | null {
+  //   return localStorage.getItem('artistId');
+  // }
 
   signupArtist(artist: {
     name: string;
@@ -80,10 +81,28 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post<any>(this.url, artist, { headers }).pipe(
+      tap((response) => {
+        // Store the token in localStorage
+        localStorage.setItem('authToken', response.token);
+        // Set the token and artistId in the AuthService
+        this.artistId = response.savedArtist._id;
+        // Optionally fetch the artist ID and store it
+        this.fetchArtistId();
+      }),
       catchError((error) => {
         console.error('Signup failed:', error.message);
-        return throwError(() => new Error('Signup failed'));
+        return throwError(() => new Error('Signup failed. Please try again.'));
       })
     );
+  }
+
+  // Method to remove token and artist ID (for logout)
+  logout(): void {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('artistId');
+    this.isLoggedIn = false; // Update login status
+    this.loginStatus.next(false); // Update login status
+    // Navigate to the main page
+    this.router.navigate(['/']);
   }
 }
