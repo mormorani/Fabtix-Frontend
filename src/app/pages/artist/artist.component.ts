@@ -19,6 +19,7 @@ export class ArtistComponent implements OnInit {
     'Teal',
   ];
   activeCardIndex: number | null = null; // Track the active card index
+  isLoading: boolean = true; // Add loading state
 
   constructor(private artistService: ArtistService) {}
 
@@ -31,15 +32,18 @@ export class ArtistComponent implements OnInit {
           cardStyle: this.getRandomCardStyles(),
         }));
 
-        if (data.length === 0) {
-          // Notify the user if no artists are available
-          alert('No artists found at the moment.');
-        }
+        this.isLoading = false; // Data fetched
+
+        // if (data.length === 0) {
+        //   // Notify the user if no artists are available
+        //   alert('No artists found at the moment.');
+        // }
       },
       (error: any) => {
         console.error('Failed to fetch artists:', error);
         // Notify the user about the error
         alert('Failed to fetch artists. Please try again later.');
+        this.isLoading = false; // Stop loading on error
       }
     );
   }
