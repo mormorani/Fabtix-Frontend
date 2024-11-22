@@ -3,7 +3,17 @@
   rel="stylesheet"
 />
 <div class="artist-content container">
-  <div class="row">
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading-indicator" aria-live="polite">
+    <i class="fa-solid fa-spinner fa-spin-pulse fa-xl" aria-hidden="true"></i>
+    <p>Loading artists...</p>
+  </div>
+
+  <!-- No Artists Found Message -->
+  <div *ngIf="!isLoading && artists.length === 0" class="no-artists">
+    <p>No artists found at the moment.</p>
+  </div>
+  <div *ngIf="!isLoading && artists.length > 0" class="row">
     <div
       *ngFor="let artist of artists; let i = index"
       class="col-md-3 col-sm-6 col-xs-12 artist-card"
