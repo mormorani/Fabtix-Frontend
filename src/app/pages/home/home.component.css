@@ -17,6 +17,8 @@
   border-radius: 8px;
   justify-items: center;
   color: #fff; /* Text color */
+  /*For ios: */
+  display: grid;
 }
 
 .header-section h1 {

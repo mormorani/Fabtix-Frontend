@@ -2,29 +2,23 @@
   href="https://fonts.googleapis.com/css?family=Raleway:400,300,200,500,600,700"
   rel="stylesheet"
 />
-<div class="artist-content container">
-  <!-- Loading Indicator -->
-  <div *ngIf="isLoading" class="loading-indicator" aria-live="polite">
-    <i class="fa-solid fa-spinner fa-spin-pulse fa-xl" aria-hidden="true"></i>
-    <p>Loading artists...</p>
-  </div>
 
-  <!-- No Artists Found Message -->
-  <div *ngIf="!isLoading && artists.length === 0" class="no-artists">
-    <p>No artists found at the moment.</p>
-  </div>
-  <div *ngIf="!isLoading && artists.length > 0" class="row">
-    <div
-      *ngFor="let artist of artists; let i = index"
-      class="col-md-3 col-sm-6 col-xs-12 artist-card"
-    >
+<div *ngIf="isLoading" class="loading-indicator" aria-live="polite">
+  <i class="fa-solid fa-spinner fa-spin-pulse fa-xl" aria-hidden="true"></i>
+  <p>Loading artists...</p>
+</div>
+
+<div *ngIf="!isLoading && artists.length === 0" class="no-artists">
+  <p>No artists found at the moment.</p>
+</div>
+<div *ngIf="!isLoading && artists.length > 0" class="artists-content mt-4">
+  <div class="card-container">
+    <div *ngFor="let artist of artists; let i = index" class="card-artist">
       <article
         class="material-card"
         [ngClass]="artist.cardStyle + (isActive(i) ? ' mc-active' : '')"
-        role="article"
-        attr.aria-labelledby="artist-{{ artist._id }}"
       >
-        <h2 id="artist-{{ artist._id }}">
+        <h2>
           <span>{{ artist.name }}</span>
           <strong>
             <i class="fa fa-fw fa-star" aria-hidden="true"></i>
@@ -46,7 +40,7 @@
             />
           </div>
           <div class="mc-description" id="artist-description-{{ artist._id }}">
-            {{ artist.show }}
+            {{ artist.genre }}
           </div>
         </div>
         <a
@@ -58,7 +52,6 @@
             [ngClass]="isActive(i) ? 'fa fa-arrow-left' : 'fa fa-bars'"
             aria-hidden="true"
           ></i>
-          <!-- Dynamic icon -->
         </a>
         <div class="mc-footer">
           <h4>Social</h4>

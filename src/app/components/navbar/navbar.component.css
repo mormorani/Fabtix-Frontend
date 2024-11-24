@@ -34,12 +34,9 @@
     font-family: 'Lato', sans-serif;
   }
   
-  /* Custom width for dropdown menu on small screens */
-  /* @media (max-width: 576px) {
-    .dropdown-menu.custom-dropdown {
-      width: fit-content !important; 
-    }
-  } */
+  .nav-link.show {
+    background: unset !important;
+  }
   
   @media (min-width: 768px) {
     .dropdown-menu.custom-dropdown {

@@ -1,192 +1,191 @@
 <div class="search-content container mt-4">
-    <div class="search-section">
-      <button
-        class="btn-search"
-        type="button"
-        (click)="onSearch()"
-        aria-label="Search Button"
-      >
-        <i class="fa-solid fa-magnifying-glass fa-xl" aria-hidden="true"></i>
-      </button>
-      <input
-        type="text"
-        class="input-search"
-        placeholder="Type to Search..."
-        [(ngModel)]="searchQuery"
-        (keyup)="filterShows()"
-        aria-label="Search performances"
-      />
-    </div>
-    <div class="container container1">
-      <div class="row justify-content-center">
-        <div class="col-12">
-          <div class="mask-custom">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table
-                  class="table align-middle table-borderless text-white mb-0"
-                  aria-live="polite"
-                  aria-label="Performance Table"
-                >
-                  <thead>
-                    <tr>
-                      <th
-                        scope="col"
-                        (click)="sortShows('artistName')"
-                        attr.aria-sort="{{
-                          currentSortColumn === 'artistName'
-                            ? isSortAscending
-                              ? 'ascending'
-                              : 'descending'
-                            : 'none'
-                        }}"
-                      >
-                        Artist Name
-                        <span *ngIf="currentSortColumn === 'artistName'">
-                          <i
-                            class="fa-solid"
-                            [ngClass]="{
-                              'fa-sort-up': isSortAscending,
-                              'fa-sort-down': !isSortAscending
-                            }"
-                            aria-hidden="true"
-                          ></i>
-                        </span>
-                      </th>
-                      <th
-                        scope="col"
-                        (click)="sortShows('showName')"
-                        attr.aria-sort="{{
-                          currentSortColumn === 'showName'
-                            ? isSortAscending
-                              ? 'ascending'
-                              : 'descending'
-                            : 'none'
-                        }}"
-                      >
-                        Show Name
-                        <span *ngIf="currentSortColumn === 'showName'">
-                          <i
-                            class="fa-solid"
-                            [ngClass]="{
-                              'fa-sort-up': isSortAscending,
-                              'fa-sort-down': !isSortAscending
-                            }"
-                            aria-hidden="true"
-                          ></i>
-                        </span>
-                      </th>
-                      <th
-                        scope="col"
-                        (click)="sortShows('location')"
-                        attr.aria-sort="{{
-                          currentSortColumn === 'location'
-                            ? isSortAscending
-                              ? 'ascending'
-                              : 'descending'
-                            : 'none'
-                        }}"
-                      >
-                        Location
-                        <span *ngIf="currentSortColumn === 'location'">
-                          <i
-                            class="fa-solid"
-                            [ngClass]="{
-                              'fa-sort-up': isSortAscending,
-                              'fa-sort-down': !isSortAscending
-                            }"
-                            aria-hidden="true"
-                          ></i>
-                        </span>
-                      </th>
-                      <th
-                        scope="col"
-                        (click)="sortShows('price')"
-                        attr.aria-sort="{{
-                          currentSortColumn === 'price'
-                            ? isSortAscending
-                              ? 'ascending'
-                              : 'descending'
-                            : 'none'
-                        }}"
-                      >
-                        Price
-                        <span *ngIf="currentSortColumn === 'price'">
-                          <i
-                            class="fa-solid"
-                            [ngClass]="{
-                              'fa-sort-up': isSortAscending,
-                              'fa-sort-down': !isSortAscending
-                            }"
-                            aria-hidden="true"
-                          ></i>
-                        </span>
-                      </th>
-                      <th
-                        scope="col"
-                        (click)="sortShows('date')"
-                        attr.aria-sort="{{
-                          currentSortColumn === 'date'
-                            ? isSortAscending
-                              ? 'ascending'
-                              : 'descending'
-                            : 'none'
-                        }}"
-                      >
-                        Date of Show
-                        <span *ngIf="currentSortColumn === 'date'">
-                          <i
-                            class="fa-solid"
-                            [ngClass]="{
-                              'fa-sort-up': isSortAscending,
-                              'fa-sort-down': !isSortAscending
-                            }"
-                            aria-hidden="true"
-                          ></i>
-                        </span>
-                      </th>
-                      <th scope="col">Tickets</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngIf="filteredShows.length === 0">
-                      <td
-                        colspan="6"
-                        class="text-center"
-                        aria-live="polite"
-                        role="status"
-                      >
-                        No performances found.
-                      </td>
-                    </tr>
-                    <tr
-                      *ngFor="let show of filteredShows; trackBy: trackByShowId"
-                      aria-label="Performance details"
+  <div class="search-section">
+    <button
+      class="btn-search"
+      type="button"
+      (click)="onSearch()"
+      aria-label="Search Button"
+    >
+      <i class="fa-solid fa-magnifying-glass fa-xl" aria-hidden="true"></i>
+    </button>
+    <input
+      type="text"
+      class="input-search"
+      placeholder="Type to Search..."
+      [(ngModel)]="searchQuery"
+      (keyup)="filterShows()"
+      aria-label="Search performances"
+    />
+  </div>
+  <div class="container container1">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <div class="mask-custom">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table
+                class="table align-middle table-borderless text-white mb-0"
+                aria-live="polite"
+                aria-label="Performance Table"
+              >
+                <thead>
+                  <tr>
+                    <th
+                      scope="col"
+                      (click)="sortShows('artistName')"
+                      attr.aria-sort="{{
+                        currentSortColumn === 'artistName'
+                          ? isSortAscending
+                            ? 'ascending'
+                            : 'descending'
+                          : 'none'
+                      }}"
                     >
-                      <td>{{ show.artist.name }}</td>
-                      <td>{{ show.name }}</td>
-                      <td>{{ show.location }}</td>
-                      <td>{{ show.price | currency : 'USD' }}</td>
-                      <td>{{ show.date | date : 'yyyy-MM-dd' }}</td>
-                      <td>
-                        <a
-                          class="btn"
-                          routerLink="/buy"
-                          [queryParams]="{ id: show._id, price: show.price }"
-                          attr.aria-label="Buy ticket for {{ show.name }} by {{
-                            show.artist.name
-                          }}"
-                          >Buy Now</a
-                        >
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+                      Artist Name
+                      <span *ngIf="currentSortColumn === 'artistName'">
+                        <i
+                          class="fa-solid"
+                          [ngClass]="{
+                            'fa-sort-up': isSortAscending,
+                            'fa-sort-down': !isSortAscending
+                          }"
+                          aria-hidden="true"
+                        ></i>
+                      </span>
+                    </th>
+                    <th
+                      scope="col"
+                      (click)="sortShows('showName')"
+                      attr.aria-sort="{{
+                        currentSortColumn === 'showName'
+                          ? isSortAscending
+                            ? 'ascending'
+                            : 'descending'
+                          : 'none'
+                      }}"
+                    >
+                      Show Name
+                      <span *ngIf="currentSortColumn === 'showName'">
+                        <i
+                          class="fa-solid"
+                          [ngClass]="{
+                            'fa-sort-up': isSortAscending,
+                            'fa-sort-down': !isSortAscending
+                          }"
+                          aria-hidden="true"
+                        ></i>
+                      </span>
+                    </th>
+                    <th
+                      scope="col"
+                      (click)="sortShows('location')"
+                      attr.aria-sort="{{
+                        currentSortColumn === 'location'
+                          ? isSortAscending
+                            ? 'ascending'
+                            : 'descending'
+                          : 'none'
+                      }}"
+                    >
+                      Location
+                      <span *ngIf="currentSortColumn === 'location'">
+                        <i
+                          class="fa-solid"
+                          [ngClass]="{
+                            'fa-sort-up': isSortAscending,
+                            'fa-sort-down': !isSortAscending
+                          }"
+                          aria-hidden="true"
+                        ></i>
+                      </span>
+                    </th>
+                    <th
+                      scope="col"
+                      (click)="sortShows('price')"
+                      attr.aria-sort="{{
+                        currentSortColumn === 'price'
+                          ? isSortAscending
+                            ? 'ascending'
+                            : 'descending'
+                          : 'none'
+                      }}"
+                    >
+                      Price
+                      <span *ngIf="currentSortColumn === 'price'">
+                        <i
+                          class="fa-solid"
+                          [ngClass]="{
+                            'fa-sort-up': isSortAscending,
+                            'fa-sort-down': !isSortAscending
+                          }"
+                          aria-hidden="true"
+                        ></i>
+                      </span>
+                    </th>
+                    <th
+                      scope="col"
+                      (click)="sortShows('date')"
+                      attr.aria-sort="{{
+                        currentSortColumn === 'date'
+                          ? isSortAscending
+                            ? 'ascending'
+                            : 'descending'
+                          : 'none'
+                      }}"
+                    >
+                      Date of Show
+                      <span *ngIf="currentSortColumn === 'date'">
+                        <i
+                          class="fa-solid"
+                          [ngClass]="{
+                            'fa-sort-up': isSortAscending,
+                            'fa-sort-down': !isSortAscending
+                          }"
+                          aria-hidden="true"
+                        ></i>
+                      </span>
+                    </th>
+                    <th scope="col">Tickets</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="filteredShows.length === 0">
+                    <td
+                      colspan="6"
+                      class="text-center"
+                      aria-live="polite"
+                      role="status"
+                    >
+                      No performances found.
+                    </td>
+                  </tr>
+                  <tr
+                    *ngFor="let show of filteredShows; trackBy: trackByShowId"
+                    aria-label="Performance details"
+                  >
+                    <td>{{ show.artist.name }}</td>
+                    <td>{{ show.name }}</td>
+                    <td>{{ show.location }}</td>
+                    <td>{{ show.price | currency : "USD" }}</td>
+                    <td>{{ show.date | date : "yyyy-MM-dd" }}</td>
+                    <td>
+                      <a
+                        class="btn"
+                        routerLink="/buy"
+                        [queryParams]="{ id: show._id, price: show.price }"
+                        attr.aria-label="Buy ticket for {{ show.name }} by {{
+                          show.artist.name
+                        }}"
+                        >Buy Now</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
