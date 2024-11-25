@@ -32,12 +32,9 @@ export class ArtistComponent implements OnInit {
           cardStyle: this.getRandomCardStyles(),
         }));
 
-        this.isLoading = false; // Data fetched
+        // Data fetched
+        this.isLoading = false; 
 
-        // if (data.length === 0) {
-        //   // Notify the user if no artists are available
-        //   alert('No artists found at the moment.');
-        // }
       },
       (error: any) => {
         console.error('Failed to fetch artists:', error);

@@ -169,13 +169,13 @@ export class TicketPurchaseComponent {
 
     const cleanedNumber = value.replace(/\D/g, ''); // Remove non-numeric characters
 
+    // console.log('Cleaned Number Before Loop:', cleanedNumber);
     const cardNumberPattern =
       /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$/;
 
     // Check if card pattern matches
     this.isCreditNumberInvalid = !cardNumberPattern.test(cleanedNumber);
 
-    // console.log(this.isCreditNumberInvalid);
     let sum = 0;
     let double = false;
     for (let i = cleanedNumber.length - 1; i >= 0; i--) {
@@ -189,7 +189,8 @@ export class TicketPurchaseComponent {
       sum += digit;
       double = !double;
     }
-    // console.log(sum);
+    // console.log('Final Sum:', sum);
+
     // Checksum validation (Luhn algorithm)
     this.isCreditNumberInvalid = this.isCreditNumberInvalid || sum % 10 !== 0;
     // Detect card type and update the variable
