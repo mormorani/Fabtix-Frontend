@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.GetPerformanceData();
     this.getReviewsData();
+    clearInterval(this.carouselTimer); // Clear existing timer
     this.carouselReviews();
   }
 
@@ -68,7 +69,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // Function to start the interval
     const startCarousel = () => {
-      this.carouselTimer = setInterval(moveTop, 3000);
+      this.carouselTimer = setInterval(moveTop, 3600);
     };
 
     // Function to stop the interval
