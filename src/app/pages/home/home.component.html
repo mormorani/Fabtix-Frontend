@@ -138,11 +138,20 @@
 
           <button
             type="submit"
-            [disabled]="reviewForm.invalid"
+            [disabled]="reviewForm.invalid || submit"
             class="btn1 btn"
             aria-label="Submit Review"
           >
             <i class="fa fa-paper-plane fa-lg" style="color: white"></i>
+
+            <!-- Loading spinner inside the button -->
+            <span
+            *ngIf="submit"
+            class="spinner-border spinner-border-sm me-2"
+            style="margin-left: 10px;"
+            role="status"
+            aria-hidden="true"
+          ></span>
           </button>
         </form>
       </div>
@@ -150,9 +159,17 @@
     <div class="section right-section">
       <div class="carousel-inner-data container1">
         <ul class="no-padding" aria-label="User reviews list">
+          <ng-container *ngIf="isLoading" class="loading-indicator" aria-live="polite">
+            <i class="fa-solid fa-spinner fa-spin-pulse fa-xl" aria-hidden="true"></i>
+            <p>Loading reviews...</p>
+          </ng-container>
+          
+          <ng-container *ngIf="!isLoading && reviewers.length === 0" class="no-reviews">
+            <span>No reviews found at the moment.</span>
+          </ng-container>
           <ng-container
-            *ngIf="reviewers && reviewers.length > 0; else noReviews"
-          >
+          *ngIf="reviewers && reviewers.length > 0"
+        >
             <li *ngFor="let review of reviewers">
               <div class="post">
                 <div class="post-date" aria-hidden="true">
@@ -178,10 +195,6 @@
               </div>
             </li>
           </ng-container>
-          <!-- This will show when there are no reviews -->
-          <ng-template #noReviews>
-            <span>No reviews yet</span>
-          </ng-template>
         </ul>
       </div>
     </div>

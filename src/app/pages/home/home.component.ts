@@ -21,6 +21,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   reviewForm!: FormGroup;
   selectedPerformance: string | null = null;
   dropdownOpened: boolean = false; // Flag to track if the dropdown has been opened
+  isLoading: boolean = true;
+  submit = false; // Add a loading state
 
   constructor(
     private reviewService: ReviewService,
@@ -96,6 +98,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getReviewsData() {
+    this.isLoading = true; // Start loading
     this.reviewService.getAllReviews().subscribe(
       (data: any[]) => {
         this.reviewers = data.map((review) => ({
@@ -118,6 +121,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           return `${reviewerName}: ${artistName}: ${reviewText}`;
         });
 
+        this.isLoading = false; // Stop loading
         // Manually trigger change detection to ensure the view updates
         // This is necessary because the data changes asynchronously
         // and Angular might not detect the changes automatically.
@@ -126,6 +130,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       (error: any) => {
         console.error('Failed to fetch reviews:', error);
+        this.isLoading = false; // Stop loading even if there's an error
         // Notify the user about the error
         alert('Failed to fetch reviews. Please try again later.');
       }
@@ -151,6 +156,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   submitReview() {
+    this.submit = true; // Set loading state
     const selectedPerformanceId = this.reviewForm.value.performance; // This is the MongoDB _id
     const reviewData = {
       performance: selectedPerformanceId || '',
@@ -161,6 +167,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.reviewService.createReview(reviewData).subscribe(
       (response: any) => {
+        this.submit = false; // Reset loading state
         this.toastr.success('Review submitted successfully.', '', {
           positionClass: 'toast-center-center', // Apply the center position
         });
@@ -170,7 +177,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       (error: any) => {
         console.error('Failed to submit review:', error);
-
+        this.submit = false; // Reset loading state
         if (error.error.message === 'Purchase not found') {
           // Show a message informing the user they can't write a review for a performance they didn't purchase a ticket for
           this.toastr.error(

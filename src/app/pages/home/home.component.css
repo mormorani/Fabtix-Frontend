@@ -39,6 +39,27 @@
   transition: background-color 0.3s ease;
 }
 
+.loading-indicator i {
+  font-size: 2rem;
+  margin-bottom: 1rem; /* Add space below the spinner */
+}
+
+.loading-indicator p {
+  font-size: 1rem;
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Full viewport height */
+  height: 100vh; 
+  /* min-height: 100vh; */
+  text-align: center;
+  color: #fff; /* Subtle text color */
+}
+
 .header-section button:hover {
   background-color: #ec8388; /* Darker shade on hover */
 }
