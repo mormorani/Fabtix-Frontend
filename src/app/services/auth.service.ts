@@ -65,11 +65,6 @@ export class AuthService {
       );
   }
 
-  // Method to get artist ID from localStorage
-  // getLoggedInArtistId(): string | null {
-  //   return localStorage.getItem('artistId');
-  // }
-
   signupArtist(artist: {
     name: string;
     email: string;

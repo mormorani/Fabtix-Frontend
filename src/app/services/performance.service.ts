@@ -21,7 +21,6 @@ export class PerformanceService {
   }
 
   getPerformancesByArtistId(): Observable<any> {
-    //const token = localStorage.getItem('accessToken'); // Retrieve token from storage
     const token = localStorage.getItem('authToken'); // Retrieve token from storage
 
     const headers = new HttpHeaders({
@@ -32,13 +31,11 @@ export class PerformanceService {
   }
   
   updatePerformance(performance: any): Observable<any> {
-    //const token = localStorage.getItem('accessToken'); // Retrieve token from storage
     const token = localStorage.getItem('authToken'); // Retrieve token from storage
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
-    console.log(JSON.stringify(performance));
     return this.http.put<any>(
       `${this.baseUrl}/${performance._id}`,
       performance,
@@ -47,7 +44,6 @@ export class PerformanceService {
   }
 
   createPerformance(performanceData: any): Observable<any> {
-    //const token = localStorage.getItem('accessToken'); // Retrieve token from storage
     const token = localStorage.getItem('authToken'); // Retrieve token from storage
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,

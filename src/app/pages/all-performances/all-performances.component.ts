@@ -57,8 +57,6 @@ export class AllPerformancesComponent implements OnInit {
     switch (column) {
       case 'artistName':
         return show.artist?.name; // Access artist name
-      case 'showName':
-        return show.name;
       case 'location':
         return show.location;
       case 'price':
@@ -91,7 +89,6 @@ export class AllPerformancesComponent implements OnInit {
           show.artist?.name
             ?.toLowerCase()
             .includes(this.searchQuery.toLowerCase()) ||
-          show.name?.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
           show.location
             ?.toLowerCase()
             .includes(this.searchQuery.toLowerCase()) ||

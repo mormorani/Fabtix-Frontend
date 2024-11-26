@@ -68,7 +68,6 @@ export class SignupComponent implements OnInit {
           // Artist already exists, show error message
           this.toastr.error('Artist already exists');
           this.loading = false;
-          console.log('Artist already exists.');
         }
       },
       (error: any) => {

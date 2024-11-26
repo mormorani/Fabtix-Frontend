@@ -53,7 +53,7 @@
                         ></i>
                       </span>
                     </th>
-                    <th
+                    <!-- <th
                       scope="col"
                       (click)="sortShows('showName')"
                       attr.aria-sort="{{
@@ -75,7 +75,7 @@
                           aria-hidden="true"
                         ></i>
                       </span>
-                    </th>
+                    </th> -->
                     <th
                       scope="col"
                       (click)="sortShows('location')"
@@ -164,7 +164,7 @@
                     aria-label="Performance details"
                   >
                     <td>{{ show.artist.name }}</td>
-                    <td>{{ show.name }}</td>
+                    <!-- <td>{{ show.name }}</td> -->
                     <td>{{ show.location }}</td>
                     <td>{{ show.price | currency : "USD" }}</td>
                     <td>{{ show.date | date : "yyyy-MM-dd" }}</td>

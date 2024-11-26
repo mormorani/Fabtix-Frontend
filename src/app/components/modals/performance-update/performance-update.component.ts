@@ -75,7 +75,6 @@ export class PerformanceUpdateComponent implements OnInit {
       this.performanceService.createPerformance(newPerformance).subscribe(
         (result: any) => {
           this.loading = false;
-          console.log('Performance created successfully!'); // Notify on success
           // Close the modal after success
           this.activeModal.close(); // Close the modal after creating the performance
         },

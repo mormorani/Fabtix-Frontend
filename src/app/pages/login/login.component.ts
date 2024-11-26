@@ -62,22 +62,7 @@ export class LoginComponent {
 
           // Fetch performances only after successful login
           this.getPerformances();
-
-          // this.loading = false; // Reset loading state
-
-          // // Set the token and artistId in the AuthService
-          // this.authService.artistId = response.artist._id;
-          // this.authService.isLoggedIn = true;
-          // this.authService.loginStatus.next(this.authService.isLoggedIn);
-
-          // // Display success notification
-          // this.toastr.success('Login successful 🎉');
-
-          // // Navigate to the main page
-          // this.router.navigate(['/']);
-
-          // // Fetch performances only after successful login
-          // this.getPerformances();
+  
         },
         (error: any) => {
           console.error('Invalid credentials:', error);
@@ -99,7 +84,6 @@ export class LoginComponent {
           // Notify the artist if no performances are found
           alert('You have not added any performances yet.');
         }
-        console.log('Performances:', performances);
       },
       (error) => {
         if (error.status === 404) {

@@ -102,7 +102,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           ...review,
         }));
         this.carouselItems = this.reviewers.length;
-        console.log(this.carouselItems);
 
         this.arrayReviews = data.map((review) => {
           const reviewerName = review.reviewerName || 'Unknown Reviewer';
@@ -118,8 +117,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           // Construct the review string
           return `${reviewerName}: ${artistName}: ${reviewText}`;
         });
-
-        console.log(this.arrayReviews);
 
         // Manually trigger change detection to ensure the view updates
         // This is necessary because the data changes asynchronously
@@ -142,15 +139,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if (selectedPerf) {
       // Set the display name for the button
-      this.selectedPerformance = selectedPerf.name
-        ? `${selectedPerf.name} by ${selectedPerf.artistName} in ${selectedPerf.date}`
-        : `${selectedPerf.artistName} at ${selectedPerf.location} in ${selectedPerf.date}`;
-
-      // Also update the form control value
+      this.selectedPerformance = `${selectedPerf.artistName} at ${selectedPerf.location} in ${selectedPerf.date}`;
+      // Update the form control value
       this.reviewForm.controls['performance'].setValue(performanceId);
       this.dropdownOpened = false; // Reset dropdown flag when a selection is made
-      console.log('Selected Performance ID:', performanceId); // Debugging line
-      console.log('Selected Performance:', this.selectedPerformance); // Debugging line
     }
   }
 
@@ -169,7 +161,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.reviewService.createReview(reviewData).subscribe(
       (response: any) => {
-        console.log('Review submitted successfully');
         this.toastr.success('Review submitted successfully.', '', {
           positionClass: 'toast-center-center', // Apply the center position
         });
@@ -201,13 +192,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   GetPerformanceData() {
     this.performanceService.getPerformances().subscribe((data: any[]) => {
-      // Process data to extract necessary properties, including the _id
-      this.performances = data.map((performance: any) => ({
-        _id: performance._id, // Include _id here
+      const today = new Date();
+      this.performances = data
+      .filter((performance: any) => new Date(performance.date) < today) // Filter out performances with dates earlier than today
+      .map((performance: any) => ({
+        _id: performance._id, 
         artistName: performance.artist.name,
         date: new Date(performance.date).toLocaleDateString('en-CA'),
         location: performance.location,
-        name: performance.name, // Include name if it's present
       }));
     });
   }

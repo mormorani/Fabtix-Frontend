@@ -25,7 +25,6 @@ export class PerformanceDetailComponent {
   getPerformanceDetails() {
     // Retrieve artistId from localStorage
     this.artistId = localStorage.getItem('artistId') || '';
-    //console.log(localStorage.getItem('artistId'));
     // Fetch performance details if artistId is available
     if (this.artistId) {
       this.performanceService.getPerformancesByArtistId().subscribe(

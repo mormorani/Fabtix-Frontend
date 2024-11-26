@@ -51,7 +51,6 @@ export class ArtistComponent implements OnInit {
   }
 
   toggleCard(index: number): void {
-    console.log('Toggling card at index:', index); // Debugging
     this.activeCardIndex = this.activeCardIndex === index ? null : index; // Toggle active card
   }
 
