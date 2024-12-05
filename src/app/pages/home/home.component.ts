@@ -21,8 +21,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   reviewForm!: FormGroup;
   selectedPerformance: string | null = null;
   dropdownOpened: boolean = false; // Flag to track if the dropdown has been opened
+
+  /**
+   * @property isLoading - Indicates the loading state
+   *
+   * Default: `true`.
+   */
   isLoading: boolean = true;
-  submit = false; // Add a loading state
+  submit: boolean = false; // Add a loading state
+
+  private visibilityChangeHandler?: () => void; // For consistent event listener
 
   constructor(
     private reviewService: ReviewService,
@@ -33,27 +41,52 @@ export class HomeComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
   ) {}
 
+  /**
+   * Initializes the component by fetching performance and review data,
+   * setting up the form group, and starting the carousel.
+   */
   ngOnInit(): void {
-    // Initialize the form group here
+    // Initialize the form group
     this.reviewForm = this.fb.group({
       performance: ['', Validators.required],
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]], // Update here
+      email: ['', [Validators.required, Validators.email]],
       review: ['', Validators.required],
     });
 
+    // Fetch performance data
     this.GetPerformanceData();
+
+    // Fetch review data
     this.getReviewsData();
-    clearInterval(this.carouselTimer); // Clear existing timer
+
+    // Start the carousel
     this.carouselReviews();
+
+    this.setupVisibilityListener();
   }
 
-  carouselReviews(): void {
-    const tickerItems = $('.carousel-inner-data ul li');
-    const tickerHeight = tickerItems.outerHeight() || 0; // Assign 0 as the default height if it's undefined
-    tickerItems.last().prependTo('.carousel-inner-data ul');
-    $('.carousel-inner-data ul').css('marginTop', `-${tickerHeight}px`);
+  setupVisibilityListener(): void {
+    this.visibilityChangeHandler = () => {
+      if (document.hidden) {
+        this.stopCarousel();
+      } else {
+        this.startCarousel();
+      }
+    };
 
+    document.addEventListener('visibilitychange', this.visibilityChangeHandler);
+  }
+
+  // Function to start the interval for the carousel
+  startCarousel = () => {
+    // Select all list items within the carousel
+    const tickerItems = $('.carousel-inner-data ul li');
+
+    // Calculate the height of a single list item. If it's undefined, default to 0.
+    //const tickerHeight = tickerItems.outerHeight() || 0;
+    const tickerHeight = 0;
+    // Function to animate the carousel and move to the next review
     const moveTop = () => {
       $('.carousel-inner-data ul').animate(
         {
@@ -61,40 +94,61 @@ export class HomeComponent implements OnInit, OnDestroy {
         },
         600,
         function () {
+          // Move the first list item to the end of the carousel
           $('.carousel-inner-data ul li:first-child').appendTo(
             '.carousel-inner-data ul'
           );
+
+          // Reset the position of the carousel
           $('.carousel-inner-data ul').css('top', '');
         }
       );
     };
+    this.stopCarousel(); // Clear any existing timers
+    // Set an interval to call the moveTop function every 3.6 seconds (3600 ms)
+    this.carouselTimer = setInterval(moveTop, 3600);
+  };
 
-    // Function to start the interval
-    const startCarousel = () => {
-      this.carouselTimer = setInterval(moveTop, 3600);
-    };
-
-    // Function to stop the interval
-    const stopCarousel = () => {
+  
+  // Function to stop the interval for the carousel
+  stopCarousel = () => {
+    if (this.carouselTimer) {
+      // Clear the interval to stop the carousel
       clearInterval(this.carouselTimer);
-    };
+      this.carouselTimer = null;
+    }
+  };
+
+  /**
+   * Manages the carousel functionality for displaying reviews.
+   * The carousel rotates through the reviews every 3.6 seconds, and it stops when the page is not visible.
+   * It also starts again when the page becomes visible.
+   */
+  carouselReviews(): void {
+    // Select all list items within the carousel
+    const tickerItems = $('.carousel-inner-data ul li');
+
+    // Calculate the height of a single list item. If it's undefined, default to 0.
+    const tickerHeight = tickerItems.outerHeight() || 0;
+
+    // Move the last list item to the beginning of the carousel
+    tickerItems.last().prependTo('.carousel-inner-data ul');
+
+    // Set the initial position of the carousel
+    $('.carousel-inner-data ul').css('marginTop', `-${tickerHeight}px`);
 
     // Start the carousel initially
-    startCarousel();
-
-    // Handle visibility change
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        stopCarousel(); // Stop carousel if page is not visible
-      } else {
-        startCarousel(); // Restart carousel if page is visible
-      }
-    });
+    this.startCarousel();
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.carouselTimer); // Clear the setInterval timer when the component is destroyed
-    document.removeEventListener('visibilitychange', this.carouselReviews); // Remove event listener to prevent memory leaks
+    this.stopCarousel();
+    if (this.visibilityChangeHandler) {
+      document.removeEventListener(
+        'visibilitychange',
+        this.visibilityChangeHandler
+      ); // Remove event listener
+    }
   }
 
   getReviewsData() {
@@ -126,7 +180,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         // This is necessary because the data changes asynchronously
         // and Angular might not detect the changes automatically.
         this.cdr.markForCheck();
-
       },
       (error: any) => {
         console.error('Failed to fetch reviews:', error);
@@ -201,13 +254,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.performanceService.getPerformances().subscribe((data: any[]) => {
       const today = new Date();
       this.performances = data
-      .filter((performance: any) => new Date(performance.date) < today) // Filter out performances with dates earlier than today
-      .map((performance: any) => ({
-        _id: performance._id, 
-        artistName: performance.artist.name,
-        date: new Date(performance.date).toLocaleDateString('en-CA'),
-        location: performance.location,
-      }));
+        .filter((performance: any) => new Date(performance.date) < today) // Filter out performances with dates earlier than today
+        .map((performance: any) => ({
+          _id: performance._id,
+          artistName: performance.artist.name,
+          date: new Date(performance.date).toLocaleDateString('en-CA'),
+          location: performance.location,
+        }));
     });
   }
 

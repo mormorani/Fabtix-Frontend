@@ -35,6 +35,7 @@ export class LoginComponent {
    * Contains `email` and `password` fields with validation rules.
    */
   loginForm!: FormGroup;
+
   /**
    * @property loading - Indicates the loading state during form submission.
    * 
@@ -67,9 +68,9 @@ export class LoginComponent {
    * @returns {void} This function does not return any value.
    */
   ngOnInit(): void {
-    // Initialize the form group here
+    // Initialize the form group
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email, this.emailValidator]], // Added email validation
+      email: ['', [Validators.required, Validators.email, this.emailValidator]], 
       password: ['', Validators.required],
     });
   }
@@ -107,7 +108,7 @@ export class LoginComponent {
       const email = this.loginForm.value.email ?? '';
       const password = this.loginForm.value.password ?? '';
 
-      // Make an API call to authenticate the user
+      // Make an API call to authenticate the artist
       this.authService.login(email, password).subscribe(
         () => {
           // Reset loading state to false
